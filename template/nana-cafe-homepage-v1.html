@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NaNa Cafe — Nishi Kawaguchi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:    #C0392B;
+  --red2:   #E74C3C;
+  --amber:  #E8A87C;
+  --cream:  #FBF5EB;
+  --brown:  #5C3D2E;
+  --brown2: #7A5640;
+  --green:  #2ECC71;
+  --white:  #FFFFFF;
+  --dark:   #1a0f0a;
+  --gray:   #9B8B80;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family:'Be Vietnam Pro', sans-serif; background:var(--cream); color:var(--brown); overflow-x:hidden; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--cream); }
+::-webkit-scrollbar-thumb { background:var(--amber); border-radius:10px; }
+
+/* ===== NAV ===== */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 48px;
+  background:rgba(251,245,235,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(92,61,46,0.08);
+  transition:all 0.3s;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; }
+.nav-logo-icon {
+  width:38px; height:38px; border-radius:50%;
+  background:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Dancing Script',cursive; color:#fff; font-size:18px; font-weight:700;
+}
+.nav-logo-text { font-family:'Playfair Display',serif; font-size:20px; font-weight:900; }
+.nav-logo-text span { color:var(--red); }
+.nav-links { display:flex; align-items:center; gap:32px; }
+.nav-links a {
+  font-size:13px; font-weight:500; color:var(--brown); text-decoration:none;
+  letter-spacing:0.04em; transition:color 0.2s; position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; width:0; height:1.5px;
+  background:var(--red); transition:width 0.3s;
+}
+.nav-links a:hover { color:var(--red); }
+.nav-links a:hover::after { width:100%; }
+.nav-links a.active { color:var(--red); }
+.nav-links a.active::after { width:100%; }
+.nav-cta {
+  background:var(--red); color:#fff;
+  padding:9px 22px; border-radius:50px; border:none;
+  font-family:'Be Vietnam Pro',sans-serif; font-size:13px; font-weight:600;
+  cursor:pointer; transition:all 0.3s; text-decoration:none; letter-spacing:0.02em;
+}
+.nav-cta:hover { background:var(--red2); transform:translateY(-1px); box-shadow:0 6px 20px rgba(192,57,43,0.3); }
+.lang-btn {
+  display:flex; align-items:center; gap:6px;
+  font-size:12px; font-weight:500; color:var(--brown2);
+  cursor:pointer; border:1px solid var(--amber); border-radius:20px;
+  padding:5px 12px; transition:all 0.2s;
+}
+.lang-btn:hover { background:var(--amber); color:#fff; }
+
+/* ===== HERO ===== */
+.hero {
+  height:100vh; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    linear-gradient(to bottom, rgba(26,15,10,0.55) 0%, rgba(26,15,10,0.3) 50%, rgba(26,15,10,0.7) 100%),
+    url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80') center/cover no-repeat;
+}
+/* floating food dots for atmosphere */
+.hero-bg::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at 20% 80%, rgba(232,168,124,0.15) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(192,57,43,0.12) 0%, transparent 60%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  text-align:center; color:#fff; padding:0 20px;
+  animation:heroIn 1s ease both;
+}
+@keyframes heroIn {
+  from { opacity:0; transform:translateY(30px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hero-sub {
+  font-family:'Dancing Script',cursive; font-size:28px;
+  color:var(--amber); margin-bottom:12px;
+  animation:heroIn 1s ease 0.2s both;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-size:clamp(52px,8vw,90px); font-weight:900;
+  line-height:1; margin-bottom:6px; letter-spacing:-0.02em;
+  animation:heroIn 1s ease 0.3s both;
+}
+.hero-title span { color:var(--amber); }
+.hero-loc {
+  font-size:13px; font-weight:500; color:rgba(255,255,255,0.75);
+  letter-spacing:0.2em; text-transform:uppercase; margin-bottom:24px;
+  animation:heroIn 1s ease 0.4s both;
+}
+.hero-divider {
+  width:50px; height:2px; background:var(--amber); margin:0 auto 24px;
+  animation:heroIn 1s ease 0.45s both;
+}
+.hero-desc {
+  font-size:15px; font-weight:300; color:rgba(255,255,255,0.85);
+  max-width:480px; margin:0 auto 36px; line-height:1.8;
+  animation:heroIn 1s ease 0.5s both;
+}
+.hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:heroIn 1s ease 0.6s both; }
+.btn-primary {
+  background:var(--red); color:#fff;
+  padding:14px 32px; border-radius:50px; border:none;
+  font-family:'Be Vietnam Pro',sans-serif; font-size:14px; font-weight:600;
+  cursor:pointer; transition:all 0.3s; text-decoration:none;
+  display:inline-block;
+}
+.btn-primary:hover { background:var(--red2); transform:translateY(-2px); box-shadow:0 8px 25px rgba(192,57,43,0.4); }
+.btn-outline {
+  background:transparent; color:#fff;
+  padding:14px 32px; border-radius:50px; border:2px solid rgba(255,255,255,0.5);
+  font-family:'Be Vietnam Pro',sans-serif; font-size:14px; font-weight:600;
+  cursor:pointer; transition:all 0.3s; text-decoration:none;
+  display:inline-block;
+}
+.btn-outline:hover { border-color:#fff; background:rgba(255,255,255,0.1); transform:translateY(-2px); }
+
+/* hero bottom bar */
+.hero-info {
+  position:absolute; bottom:0; left:0; right:0; z-index:2;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 48px;
+  background:rgba(26,15,10,0.6); backdrop-filter:blur(8px);
+}
+.hero-info-item { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.85); }
+.hero-info-item svg { opacity:0.7; }
+.hero-info-item span { font-size:13px; }
+.hero-info-item strong { font-size:14px; color:#fff; display:block; }
+.hero-social { display:flex; gap:12px; }
+.hero-social a {
+  width:34px; height:34px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.3);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; text-decoration:none; font-size:14px; transition:all 0.2s;
+}
+.hero-social a:hover { background:var(--red); border-color:var(--red); }
+
+/* ===== SECTION COMMONS ===== */
+section { padding:90px 48px; }
+.section-label {
+  font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--red); margin-bottom:12px;
+}
+.section-title {
+  font-family:'Playfair Display',serif; font-size:clamp(32px,4vw,48px); font-weight:900;
+  color:var(--brown); line-height:1.15; margin-bottom:16px;
+}
+.section-title em { font-style:italic; color:var(--red); }
+.section-desc {
+  font-size:15px; color:var(--gray); line-height:1.8; max-width:520px;
+}
+
+/* ===== TAGLINE STRIP ===== */
+.tagline-strip {
+  background:var(--red); color:#fff;
+  padding:16px 0; overflow:hidden;
+}
+.tagline-track {
+  display:flex; gap:60px; width:max-content;
+  animation:marquee 18s linear infinite;
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tagline-item {
+  display:flex; align-items:center; gap:14px;
+  font-size:13px; font-weight:500; letter-spacing:0.08em; white-space:nowrap;
+}
+.tagline-dot { width:5px; height:5px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+
+/* ===== MENU SECTION ===== */
+.menu-section { background:var(--white); }
+.menu-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; }
+.menu-tabs { display:flex; gap:8px; margin-bottom:40px; }
+.menu-tab {
+  padding:9px 22px; border-radius:50px; font-size:13px; font-weight:600;
+  cursor:pointer; border:2px solid transparent; transition:all 0.25s;
+  background:var(--cream); color:var(--brown2);
+}
+.menu-tab.active { background:var(--red); color:#fff; border-color:var(--red); }
+.menu-tab:hover:not(.active) { border-color:var(--amber); color:var(--red); }
+
+.menu-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+.menu-card {
+  border-radius:20px; overflow:hidden;
+  background:var(--cream);
+  transition:all 0.3s; cursor:pointer; position:relative;
+}
+.menu-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(92,61,46,0.15); }
+.menu-card-img {
+  height:190px; object-fit:cover; width:100%;
+  background:linear-gradient(135deg,#e8d5b7,#c9a87a);
+  display:flex; align-items:center; justify-content:center;
+  font-size:48px; position:relative; overflow:hidden;
+}
+.menu-card-img img { width:100%; height:100%; object-fit:cover; }
+.menu-badge {
+  position:absolute; top:12px; left:12px;
+  background:var(--red); color:#fff;
+  font-size:10px; font-weight:700; letter-spacing:0.05em;
+  padding:4px 10px; border-radius:50px;
+}
+.menu-card-body { padding:16px 18px 20px; }
+.menu-card-name { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; margin-bottom:4px; color:var(--brown); }
+.menu-card-desc { font-size:12px; color:var(--gray); line-height:1.6; margin-bottom:12px; }
+.menu-card-footer { display:flex; align-items:center; justify-content:space-between; }
+.menu-card-price { font-size:15px; font-weight:700; color:var(--red); }
+.menu-card-btn {
+  width:30px; height:30px; border-radius:50%;
+  background:var(--red); color:#fff; border:none;
+  cursor:pointer; font-size:18px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.menu-card-btn:hover { background:var(--brown); transform:rotate(90deg); }
+
+/* ship section */
+.ship-section { background:var(--cream); }
+.ship-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.ship-img-wrap { position:relative; }
+.ship-img-wrap img { width:100%; border-radius:24px; object-fit:cover; height:460px; display:block; }
+.ship-img-badge {
+  position:absolute; bottom:24px; left:24px;
+  background:var(--red); color:#fff; border-radius:16px;
+  padding:16px 20px;
+}
+.ship-img-badge strong { font-size:22px; font-family:'Playfair Display',serif; display:block; }
+.ship-img-badge span { font-size:12px; opacity:0.85; }
+.ship-content { padding:20px 0; }
+.ship-list { list-style:none; margin:28px 0 36px; display:flex; flex-direction:column; gap:16px; }
+.ship-list li {
+  display:flex; align-items:center; gap:14px;
+  font-size:14px; color:var(--brown2);
+}
+.ship-list li::before {
+  content:''; width:8px; height:8px; border-radius:50%;
+  background:var(--amber); flex-shrink:0;
+}
+.ship-platforms { display:flex; gap:12px; flex-wrap:wrap; }
+.ship-platform {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 18px; border-radius:12px;
+  border:1.5px solid var(--amber); font-size:13px; font-weight:600; color:var(--brown);
+  transition:all 0.2s; cursor:pointer;
+}
+.ship-platform:hover { background:var(--amber); color:#fff; }
+.ship-platform span { font-size:18px; }
+
+/* ===== STORY SECTION ===== */
+.story-section { background:var(--brown); color:#fff; position:relative; overflow:hidden; }
+.story-section::before {
+  content:''; position:absolute; top:-100px; right:-100px;
+  width:400px; height:400px; border-radius:50%;
+  background:rgba(232,168,124,0.08);
+}
+.story-section::after {
+  content:''; position:absolute; bottom:-80px; left:-60px;
+  width:300px; height:300px; border-radius:50%;
+  background:rgba(192,57,43,0.1);
+}
+.story-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:1; }
+.story-imgs { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.story-img { border-radius:16px; overflow:hidden; }
+.story-img img { width:100%; height:200px; object-fit:cover; display:block; filter:brightness(0.9); transition:filter 0.3s; }
+.story-img:hover img { filter:brightness(1); }
+.story-img:first-child { grid-column:1/-1; }
+.story-img:first-child img { height:240px; }
+.story-content .section-label { color:var(--amber); }
+.story-content .section-title { color:#fff; }
+.story-content .section-desc { color:rgba(255,255,255,0.75); max-width:100%; }
+.story-stats { display:flex; gap:40px; margin:40px 0; }
+.stat-item strong { font-family:'Playfair Display',serif; font-size:36px; color:var(--amber); display:block; }
+.stat-item span { font-size:12px; color:rgba(255,255,255,0.6); letter-spacing:0.06em; text-transform:uppercase; }
+.btn-light {
+  display:inline-block; background:var(--amber); color:var(--brown);
+  padding:14px 32px; border-radius:50px; font-size:14px; font-weight:700;
+  text-decoration:none; transition:all 0.3s;
+}
+.btn-light:hover { background:#fff; transform:translateY(-2px); }
+
+/* ===== NEWS SECTION ===== */
+.news-section { background:var(--white); }
+.news-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:44px; }
+.view-all {
+  font-size:13px; font-weight:600; color:var(--red); text-decoration:none;
+  display:flex; align-items:center; gap:6px; transition:gap 0.2s;
+}
+.view-all:hover { gap:10px; }
+.news-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:24px; }
+.news-card-main { grid-row:span 2; }
+.news-card {
+  border-radius:20px; overflow:hidden; background:var(--cream);
+  transition:all 0.3s; cursor:pointer;
+}
+.news-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(92,61,46,0.12); }
+.news-img { overflow:hidden; }
+.news-img img { width:100%; object-fit:cover; display:block; transition:transform 0.5s; }
+.news-card:hover .news-img img { transform:scale(1.06); }
+.news-card-main .news-img img { height:280px; }
+.news-card:not(.news-card-main) .news-img img { height:140px; }
+.news-card-body { padding:20px; }
+.news-cat {
+  font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--red); margin-bottom:8px; display:block;
+}
+.news-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--brown); line-height:1.4; margin-bottom:8px; }
+.news-card-main .news-title { font-size:22px; }
+.news-date { font-size:12px; color:var(--gray); }
+
+/* ===== CONTACT / FOOTER ===== */
+.contact-section {
+  background:var(--cream);
+  border-top:1px solid rgba(92,61,46,0.1);
+}
+.contact-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:50px; }
+.contact-brand .nav-logo-icon { width:46px; height:46px; font-size:22px; margin-bottom:14px; }
+.contact-brand-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; margin-bottom:10px; }
+.contact-brand-name span { color:var(--red); }
+.contact-brand-desc { font-size:13px; color:var(--gray); line-height:1.8; margin-bottom:20px; }
+.social-row { display:flex; gap:10px; }
+.social-btn {
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--brown); color:#fff; text-decoration:none;
+  font-size:14px; font-weight:700; transition:all 0.2s;
+}
+.social-btn:hover { background:var(--red); transform:scale(1.1); }
+.contact-col h4 { font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--brown); margin-bottom:20px; }
+.contact-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.contact-col ul li a { font-size:13px; color:var(--gray); text-decoration:none; transition:color 0.2s; }
+.contact-col ul li a:hover { color:var(--red); }
+.contact-col ul li { font-size:13px; color:var(--gray); line-height:1.6; }
+.contact-col ul li strong { color:var(--brown); font-weight:600; display:block; margin-bottom:2px; }
+.footer-bottom {
+  margin-top:50px; padding-top:24px;
+  border-top:1px solid rgba(92,61,46,0.1);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-bottom p { font-size:12px; color:var(--gray); }
+.line-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#06C755; color:#fff;
+  padding:8px 16px; border-radius:8px; text-decoration:none;
+  font-size:12px; font-weight:600; transition:all 0.2s;
+}
+.line-btn:hover { opacity:0.9; transform:translateY(-1px); }
+.zalo-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#0068FF; color:#fff;
+  padding:8px 16px; border-radius:8px; text-decoration:none;
+  font-size:12px; font-weight:600; transition:all 0.2s;
+}
+.zalo-btn:hover { opacity:0.9; transform:translateY(-1px); }
+
+/* ===== STICKY CONTACT ===== */
+.sticky-contact {
+  position:fixed; bottom:28px; right:28px; z-index:200;
+  display:flex; flex-direction:column; gap:10px; align-items:flex-end;
+}
+.sticky-btn {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 18px; border-radius:50px;
+  font-size:13px; font-weight:600; text-decoration:none; color:#fff;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  transition:all 0.25s; white-space:nowrap;
+}
+.sticky-btn.fb  { background:#1877F2; }
+.sticky-btn.line { background:#06C755; }
+.sticky-btn.phone { background:var(--red); }
+.sticky-btn:hover { transform:scale(1.05) translateX(-4px); box-shadow:0 8px 28px rgba(0,0,0,0.25); }
+
+/* fade in on scroll */
+.fade-up { opacity:0; transform:translateY(30px); transition:all 0.7s ease; }
+.fade-up.visible { opacity:1; transform:translateY(0); }
+
+/* ===== PLACEHOLDER IMGS (gradient) ===== */
+.img-pho    { background:linear-gradient(135deg,#c9956a,#8B4513); }
+.img-banhmi { background:linear-gradient(135deg,#d4a463,#8B6914); }
+.img-micay  { background:linear-gradient(135deg,#e74c3c,#8B1A1A); }
+.img-trasua  { background:linear-gradient(135deg,#a8d8a8,#3d8b37); }
+.img-story  { background:linear-gradient(135deg,#c9956a,#5C3D2E); }
+.img-news1  { background:linear-gradient(135deg,#E8A87C,#C0392B); }
+.img-news2  { background:linear-gradient(135deg,#5C3D2E,#8B4513); }
+.img-news3  { background:linear-gradient(135deg,#2ECC71,#1a8a48); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">N</div>
+    <div class="nav-logo-text"><span>NaNa</span> Cafe</div>
+  </div>
+  <div class="nav-links">
+    <a href="#home" class="active">Trang Chủ</a>
+    <a href="#menu">Thực Đơn</a>
+    <a href="#ship">Giao Hàng</a>
+    <a href="#story">Câu Chuyện</a>
+    <a href="#news">Tin Tức</a>
+    <a href="#contact">Liên Hệ</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="lang-btn">🇯🇵 JP / 🇻🇳 VI</div>
+    <a class="nav-cta" href="#menu">Xem Thực Đơn</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-sub">Chào mừng đến với</div>
+    <h1 class="hero-title"><span>NaNa</span> Cafe</h1>
+    <p class="hero-loc">📍 Nishi Kawaguchi, Saitama — Nhật Bản</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Bún · Phở · Bánh Mì · Mì Cay · Trà Sữa<br>Hương vị Việt giữa lòng Nhật Bản — cách ga 2 phút đi bộ</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">🍜 Xem Thực Đơn</a>
+      <a href="#ship" class="btn-outline">🛵 Đặt Giao Hàng</a>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-info-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+      <div><strong>080-5985-7879</strong><span>Gọi đặt bàn</span></div>
+    </div>
+    <div class="hero-info-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div><strong>10:00 — 22:00</strong><span>Thứ 2 — Chủ nhật</span></div>
+    </div>
+    <div class="hero-info-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div><strong>Nishi Kawaguchi Đông — 2 phút</strong><span>埼玉県川口市並木2-3-27-1F</span></div>
+    </div>
+    <div class="hero-social">
+      <a href="#" title="Facebook">f</a>
+      <a href="#" title="Instagram">ig</a>
+      <a href="#" title="LINE">L</a>
+    </div>
+  </div>
+</section>
+
+<!-- TAGLINE STRIP -->
+<div class="tagline-strip">
+  <div class="tagline-track">
+    <div class="tagline-item"><span class="tagline-dot"></span>BÚN PHỞ CHUẨN VỊ NAM</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>BÁNH MÌ GIÒN TAN</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>MÌ CAY CẤP ĐỘ 1→5</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>TRÀ SỮA TƯƠI MỖI NGÀY</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>ĂN VẶT ĐẶC SẢN VIỆT</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>GIAO HÀNG TOÀN KAWAGUCHI</div>
+    <!-- duplicate for infinite scroll -->
+    <div class="tagline-item"><span class="tagline-dot"></span>BÚN PHỞ CHUẨN VỊ NAM</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>BÁNH MÌ GIÒN TAN</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>MÌ CAY CẤP ĐỘ 1→5</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>TRÀ SỮA TƯƠI MỖI NGÀY</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>ĂN VẶT ĐẶC SẢN VIỆT</div>
+    <div class="tagline-item"><span class="tagline-dot"></span>GIAO HÀNG TOÀN KAWAGUCHI</div>
+  </div>
+</div>
+
+<!-- MENU TẠI QUÁN -->
+<section class="menu-section" id="menu">
+  <div class="menu-header fade-up">
+    <div>
+      <p class="section-label">Thực Đơn Tại Quán</p>
+      <h2 class="section-title">Hương vị <em>Việt Nam</em><br>giữa lòng Nhật Bản</h2>
+    </div>
+    <a href="#" class="view-all">Xem toàn bộ thực đơn →</a>
+  </div>
+  <div class="menu-tabs fade-up">
+    <button class="menu-tab active">Tất cả</button>
+    <button class="menu-tab">🍜 Bún · Phở</button>
+    <button class="menu-tab">🥖 Bánh Mì</button>
+    <button class="menu-tab">🌶 Mì Cay</button>
+    <button class="menu-tab">🧋 Trà Sữa</button>
+    <button class="menu-tab">🍡 Ăn Vặt</button>
+  </div>
+  <div class="menu-grid fade-up">
+    <!-- Card 1 -->
+    <div class="menu-card">
+      <div class="menu-card-img img-pho">
+        <div class="menu-badge">Bán chạy nhất</div>
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70" alt="Phở bò" onerror="this.style.display='none'">
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Phở Bò Đặc Biệt</div>
+        <div class="menu-card-desc">Nước dùng hầm 12 tiếng, thịt bò tươi, rau thơm chuẩn vị Nam</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">¥980</span>
+          <button class="menu-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="menu-card">
+      <div class="menu-card-img img-banhmi">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=70" alt="Bánh mì" onerror="this.style.display='none'">
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Bánh Mì Thịt Nướng</div>
+        <div class="menu-card-desc">Bánh nướng giòn tan, thịt xá xíu, đồ chua, rau thơm</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">¥680</span>
+          <button class="menu-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="menu-card">
+      <div class="menu-card-img img-micay">
+        <div class="menu-badge" style="background:var(--amber);color:var(--brown)">🌶 Hot</div>
+        <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&q=70" alt="Mì cay" onerror="this.style.display='none'">
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Mì Cay Hải Sản</div>
+        <div class="menu-card-desc">Cấp độ 1–5, tôm mực tươi, nước dùng đậm đà cay nồng</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">¥1,200</span>
+          <button class="menu-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="menu-card">
+      <div class="menu-card-img img-trasua">
+        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=70" alt="Trà sữa" onerror="this.style.display='none'">
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Trà Sữa Matcha Trân Châu</div>
+        <div class="menu-card-desc">Matcha Nhật Bản, sữa tươi, trân châu đen dẻo thơm</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">¥550</span>
+          <button class="menu-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GIAO HÀNG / SHIP XA -->
+<section class="ship-section" id="ship">
+  <div class="ship-grid">
+    <div class="ship-img-wrap fade-up">
+      <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80" alt="Giao hàng" style="width:100%;border-radius:24px;height:460px;object-fit:cover;display:block;" onerror="this.style.background='linear-gradient(135deg,#c9956a,#5C3D2E)'">
+      <div class="ship-img-badge">
+        <strong>30–45 phút</strong>
+        <span>Thời gian giao hàng trung bình</span>
+      </div>
+    </div>
+    <div class="ship-content fade-up">
+      <p class="section-label">Thực Đơn Giao Hàng</p>
+      <h2 class="section-title">Ăn ngon tại nhà —<br><em>NaNa Ship tới</em></h2>
+      <p class="section-desc">Không cần ra ngoài — chúng tôi mang hương vị Việt Nam đến tận cửa nhà bạn. Phục vụ toàn khu vực Kawaguchi và lân cận.</p>
+      <ul class="ship-list">
+        <li>Phở bò, bún bò, bún thịt nướng</li>
+        <li>Bánh mì tươi — giao trong hộp giữ nhiệt</li>
+        <li>Mì cay đóng gói riêng giữ vị</li>
+        <li>Set combo tiết kiệm cho gia đình</li>
+        <li>Trà sữa, đồ uống lạnh đóng kín</li>
+      </ul>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:16px;font-weight:500;">Đặt hàng qua:</p>
+      <div class="ship-platforms">
+        <div class="ship-platform"><span>📱</span> Gọi trực tiếp</div>
+        <div class="ship-platform"><span>💬</span> Zalo / LINE</div>
+        <div class="ship-platform"><span>📘</span> Facebook</div>
+        <div class="ship-platform"><span>🛵</span> Uber Eats</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÂU CHUYỆN -->
+<section class="story-section" id="story">
+  <div class="story-grid">
+    <div class="story-imgs fade-up">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1600565193348-f74bd3960d95?w=600&q=70" alt="NaNa Cafe" onerror="this.style.background='linear-gradient(135deg,#E8A87C,#5C3D2E)';this.style.height='240px'">
+      </div>
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" alt="Quán" onerror="this.style.background='linear-gradient(135deg,#c9956a,#8B4513)';this.style.height='200px'">
+      </div>
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&q=70" alt="Đồ ăn" onerror="this.style.background='linear-gradient(135deg,#C0392B,#8B1A1A)';this.style.height='200px'">
+      </div>
+    </div>
+    <div class="story-content fade-up">
+      <p class="section-label">Câu Chuyện Thương Hiệu</p>
+      <h2 class="section-title" style="color:#fff">Một góc <em>quê hương</em><br>nơi đất Nhật</h2>
+      <p class="section-desc">NaNa Cafe ra đời từ một ước mơ đơn giản: mang hương vị bữa ăn nhà đến với những người Việt xa xứ tại Nishi Kawaguchi. Từ bát phở buổi sáng đến ly trà sữa chiều tà — chúng tôi nấu bằng tất cả tình yêu quê hương.</p>
+      <div class="story-stats">
+        <div class="stat-item"><strong>2024</strong><span>Thành lập</span></div>
+        <div class="stat-item"><strong>8K+</strong><span>Người yêu thích</span></div>
+        <div class="stat-item"><strong>50+</strong><span>Món ăn</span></div>
+      </div>
+      <a href="#" class="btn-light">Đọc câu chuyện đầy đủ →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TIN TỨC -->
+<section class="news-section" id="news">
+  <div class="news-header fade-up">
+    <div>
+      <p class="section-label">Tin Tức & Ưu Đãi</p>
+      <h2 class="section-title">Chuyện mới <em>từ NaNa</em></h2>
+    </div>
+    <a href="#" class="view-all">Xem tất cả →</a>
+  </div>
+  <div class="news-grid fade-up">
+    <!-- Main -->
+    <div class="news-card news-card-main">
+      <div class="news-img">
+        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&q=70" alt="news" style="height:280px" onerror="this.style.background='linear-gradient(135deg,#E8A87C,#C0392B)';this.style.display='block'">
+      </div>
+      <div class="news-card-body">
+        <span class="news-cat">🎉 Khuyến Mãi</span>
+        <div class="news-title">Tháng 5 — Mua 2 tô phở tặng 1 trà sữa cho nhóm bạn từ 3 người trở lên!</div>
+        <div class="news-date">01/05/2025</div>
+      </div>
+    </div>
+    <!-- Sub 1 -->
+    <div class="news-card">
+      <div class="news-img">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=70" alt="news2" style="height:140px" onerror="this.style.background='linear-gradient(135deg,#5C3D2E,#8B4513)';this.style.display='block'">
+      </div>
+      <div class="news-card-body">
+        <span class="news-cat">🍜 Món Mới</span>
+        <div class="news-title">Ra mắt Bún Bò Huế — đậm vị miền Trung</div>
+        <div class="news-date">20/04/2025</div>
+      </div>
+    </div>
+    <!-- Sub 2 -->
+    <div class="news-card">
+      <div class="news-img">
+        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=70" alt="news3" style="height:140px" onerror="this.style.background='linear-gradient(135deg,#2ECC71,#1a8a48)';this.style.display='block'">
+      </div>
+      <div class="news-card-body">
+        <span class="news-cat">📢 Thông Báo</span>
+        <div class="news-title">NaNa Cafe mở cửa Lễ Thiếu Nhi — menu trẻ em đặc biệt</div>
+        <div class="news-date">15/04/2025</div>
+      </div>
+    </div>
+    <!-- Sub 3 -->
+    <div class="news-card">
+      <div class="news-img">
+        <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&q=70" alt="news4" style="height:140px;object-position:center" onerror="this.style.background='linear-gradient(135deg,#E8A87C,#8B4513)';this.style.display='block'">
+      </div>
+      <div class="news-card-body">
+        <span class="news-cat">💬 Cộng Đồng</span>
+        <div class="news-title">Cảm ơn 8000 bạn đã like fanpage NaNa Cafe!</div>
+        <div class="news-date">10/04/2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid fade-up">
+    <!-- Brand -->
+    <div class="contact-brand">
+      <div class="nav-logo-icon" style="width:46px;height:46px;font-size:22px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;background:var(--red);border-radius:50%;color:#fff;font-family:'Dancing Script',cursive;font-weight:700;">N</div>
+      <div class="contact-brand-name"><span>NaNa</span> Cafe</div>
+      <p class="contact-brand-desc">Hương vị Việt Nam giữa lòng Nhật Bản. Bún · Phở · Bánh Mì · Mì Cay · Trà Sữa.</p>
+      <div class="social-row">
+        <a class="social-btn" href="#" title="Facebook">f</a>
+        <a class="social-btn" href="#" title="Instagram" style="font-size:12px">ig</a>
+        <a class="social-btn" href="#" title="TikTok" style="font-size:12px">tt</a>
+        <a class="social-btn" href="#" title="LINE" style="background:#06C755">L</a>
+        <a class="social-btn" href="#" title="Zalo" style="background:#0068FF;font-size:11px">Zalo</a>
+      </div>
+    </div>
+    <!-- Menu -->
+    <div class="contact-col">
+      <h4>Trang</h4>
+      <ul>
+        <li><a href="#home">Trang Chủ</a></li>
+        <li><a href="#menu">Thực Đơn Tại Quán</a></li>
+        <li><a href="#ship">Giao Hàng</a></li>
+        <li><a href="#story">Câu Chuyện</a></li>
+        <li><a href="#news">Tin Tức & Ưu Đãi</a></li>
+      </ul>
+    </div>
+    <!-- Liên hệ -->
+    <div class="contact-col">
+      <h4>Liên Hệ</h4>
+      <ul>
+        <li><strong>📍 Địa chỉ</strong>埼玉県川口市並木2-3-27-1F</li>
+        <li><strong>🚉 Gần ga</strong>Nishi Kawaguchi Đông — 2 phút đi bộ</li>
+        <li><strong>📞 Điện thoại</strong>080-5985-7879</li>
+        <li><strong>⏰ Giờ mở</strong>10:00 — 22:00 (T2–CN)</li>
+      </ul>
+    </div>
+    <!-- Liên kết nhanh -->
+    <div class="contact-col">
+      <h4>Liên Kết Nhanh</h4>
+      <ul>
+        <li style="margin-bottom:8px"><a class="line-btn" href="#">💬 Nhắn LINE</a></li>
+        <li style="margin-bottom:8px"><a class="zalo-btn" href="#">💙 Nhắn Zalo</a></li>
+        <li><a href="https://www.facebook.com/people/NaNa-Cafe-Nishi-Kawaguchi/61565186858156/" style="color:var(--gray);font-size:13px;text-decoration:none;">📘 Facebook Fanpage →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NaNa Cafe — Nishi Kawaguchi. All rights reserved.</p>
+    <p style="color:var(--amber)">Nấu bằng ❤️ — Hương vị quê nhà</p>
+  </div>
+</section>
+
+<!-- STICKY CONTACT BUTTONS -->
+<div class="sticky-contact">
+  <a class="sticky-btn fb" href="https://www.facebook.com/people/NaNa-Cafe-Nishi-Kawaguchi/61565186858156/">📘 Facebook</a>
+  <a class="sticky-btn line" href="#">💬 LINE</a>
+  <a class="sticky-btn phone" href="tel:08059857879">📞 Gọi ngay</a>
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// Scroll fade-in
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.boxShadow = window.scrollY > 60 ? '0 4px 30px rgba(92,61,46,0.1)' : 'none';
+});
+</script>
+</body>
+</html>
