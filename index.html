@@ -120,6 +120,8 @@
 
           var nextUrl =
             window.location.pathname + "?page=" + encodeURIComponent(value);
+          document.querySelector(".hint").innerHTML =
+            "Có thể dùng URL: <a href='" + nextUrl + "'>" + nextUrl + "</a>";
           if (replaceHistory) {
             history.replaceState({}, "", nextUrl);
           } else {
