@@ -1,0 +1,2181 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nana Cafe — Nishikawaguchi</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --c1: #f0ede4;
+      --c2: #c8d4b8;
+      --c3: #6b8f5e;
+      --c4: #2d5a27;
+      --c5: #1a3a18;
+      --white: #fff;
+      --gray: #8a9e84;
+      --radius: 16px;
+      /* text tokens */
+      --tx-dark: #111;
+      /* headings on light bg */
+      --tx-body: #333;
+      /* body on light bg */
+      --tx-muted: #6b7a6e;
+      /* captions on light bg */
+      --tx-light: #fff;
+      /* any text on dark bg */
+      --tx-light-sub: rgba(255, 255, 255, 0.72);
+      /* secondary on dark bg */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Be Vietnam Pro", sans-serif;
+      background: var(--white);
+      color: var(--tx-body);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--c1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--c3);
+      border-radius: 4px;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--c2);
+      padding: 0 5vw;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--tx-dark);
+    }
+
+    .nav-logo span {
+      color: var(--c5);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tx-body);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--tx-dark);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nav-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-icon:hover {
+      background: var(--c1);
+    }
+
+    .cart-btn {
+      background: var(--c4);
+      color: var(--tx-light);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      font-family: "Be Vietnam Pro", sans-serif;
+      transition: background 0.2s;
+    }
+
+    .cart-btn:hover {
+      background: var(--c3);
+    }
+
+    .ham {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .ham span {
+      width: 22px;
+      height: 2px;
+      background: var(--tx-dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      z-index: 199;
+      padding: 20px 5vw 30px;
+      border-bottom: 2px solid var(--c1);
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-menu a {
+      padding: 14px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--tx-body);
+      border-bottom: 1px solid var(--c1);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin-top: 60px;
+      min-height: 90vh;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80") center/cover no-repeat;
+      opacity: 0.25;
+    }
+
+    .hero-left {
+      background: var(--c1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding: 60px 5vw 60px 5vw;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(40px, 5vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 10px;
+      color: var(--tx-dark);
+    }
+
+    .hero-title em {
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(22px, 3vw, 36px);
+      color: var(--tx-muted);
+      margin-bottom: 22px;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--tx-body);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 36px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-green {
+      background: var(--c3);
+      color: var(--tx-light);
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-green:hover {
+      background: var(--c4);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-light {
+      background: transparent;
+      color: var(--tx-dark);
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid var(--tx-dark);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-outline-light:hover {
+      background: var(--tx-dark);
+      color: var(--tx-light);
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 5vw 40px 0;
+    }
+
+    .hero-img-wrap {
+      position: relative;
+    }
+
+    .hero-img-main {
+      width: min(380px, 80vw);
+      border-radius: 24px;
+      object-fit: cover;
+      height: 500px;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 24px;
+      left: -20px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 14px 18px;
+      border: 1.5px solid var(--c2);
+      box-shadow: 0 8px 30px rgba(15, 42, 29, 0.3);
+    }
+
+    .hero-badge strong {
+      font-size: 20px;
+      font-family: "Playfair Display", serif;
+      display: block;
+    }
+
+    .hero-badge span {
+      font-size: 11px;
+      opacity: 0.85;
+      color: var(--tx-muted);
+    }
+
+    .hero-info-bar {
+      background: var(--c4);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      color: var(--tx-light);
+      padding: 14px 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .info-item strong {
+      display: block;
+      font-size: 14px;
+      color: var(--tx-light);
+    }
+
+    .info-item span {
+      opacity: 0.75;
+      font-size: 12px;
+      color: var(--tx-light-sub);
+    }
+
+    /* ===== SECTIONS COMMON ===== */
+    .sec {
+      padding: 80px 5vw;
+    }
+
+    .sec-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 10px;
+    }
+
+    .sec-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--tx-dark);
+      margin-bottom: 14px;
+    }
+
+    .sec-title em {
+      font-style: italic;
+    }
+
+    .sec-desc {
+      font-size: 14px;
+      color: var(--tx-body);
+      line-height: 1.8;
+      max-width: 540px;
+    }
+
+    .sec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .view-all {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tx-body);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .view-all:hover {
+      gap: 10px;
+    }
+
+    /* ===== BESTSELLER / MENU (Drinko style) ===== */
+    .bestseller {
+      background: var(--white);
+    }
+
+    .bs-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .bs-tab {
+      padding: 9px 22px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--tx-body);
+      transition: all 0.2s;
+      font-family: "Be Vietnam Pro", sans-serif;
+    }
+
+    .bs-tab.active {
+      background: var(--c5);
+      color: var(--tx-light);
+      border-color: var(--c5);
+    }
+
+    .bs-tab:hover:not(.active) {
+      border-color: var(--tx-dark);
+      color: var(--tx-dark);
+    }
+
+    /* Carousel wrapper */
+    .bs-carousel-wrap {
+      position: relative;
+    }
+
+    .bs-carousel-viewport {
+      overflow: hidden;
+    }
+
+    .bs-carousel {
+      display: flex;
+      gap: 18px;
+      transition: transform 0.35s ease;
+      will-change: transform;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1.5px solid var(--c2);
+      color: var(--tx-dark);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .carousel-arrow:hover {
+      background: var(--c5);
+      color: var(--tx-light);
+      border-color: var(--c5);
+    }
+
+    .carousel-arrow:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .carousel-arrow.prev {
+      left: -18px;
+    }
+
+    .carousel-arrow.next {
+      right: -18px;
+    }
+
+    /* Card — cut-out product style */
+    .bs-card {
+      background: var(--white);
+      border-radius: 14px;
+      border: 1.5px solid #e8ede8;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+      flex: 0 0 calc((100% - 54px) / 4);
+    }
+
+    .bs-card:hover {
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .bs-img {
+      height: 190px;
+      background: var(--c1);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bs-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .bs-card:hover .bs-img img {
+      transform: scale(1.06);
+    }
+
+    .bs-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--c5);
+      color: var(--tx-light);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      letter-spacing: 0.04em;
+    }
+
+    .bs-body {
+      padding: 14px 16px 0;
+    }
+
+    .bs-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--tx-dark);
+      margin-bottom: 3px;
+    }
+
+    .bs-desc {
+      font-size: 11px;
+      color: var(--tx-muted);
+      line-height: 1.55;
+      margin-bottom: 0;
+    }
+
+    .bs-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px 14px;
+      margin-top: 10px;
+      border-top: 1px solid #eef2ee;
+    }
+
+    .bs-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--tx-dark);
+    }
+
+    .to-cart-btn {
+      background: var(--c1);
+      color: var(--tx-dark);
+      border: none;
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: "Be Vietnam Pro", sans-serif;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .to-cart-btn:hover {
+      background: var(--c5);
+      color: var(--tx-light);
+    }
+
+    /* Feature banner (New item) */
+    .feature-banner {
+      background: var(--c1);
+      padding: 60px 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .fb-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 8px;
+    }
+
+    .fb-kicker {
+      font-family: "Dancing Script", cursive;
+      font-size: 22px;
+      color: var(--tx-body);
+      display: block;
+      margin-bottom: -6px;
+    }
+
+    .fb-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 7vw, 80px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--tx-dark);
+      margin-bottom: 16px;
+    }
+
+    .fb-item-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--tx-dark);
+      margin-bottom: 8px;
+    }
+
+    .fb-item-desc {
+      font-size: 13px;
+      color: var(--tx-body);
+      line-height: 1.7;
+      max-width: 360px;
+      margin-bottom: 24px;
+    }
+
+    .fb-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .fb-price-new {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 900;
+      color: var(--tx-dark);
+    }
+
+    .fb-price-old {
+      font-size: 18px;
+      color: var(--tx-muted);
+      text-decoration: line-through;
+    }
+
+    .fb-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .fb-stat strong {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--tx-dark);
+      display: block;
+    }
+
+    .fb-stat span {
+      font-size: 11px;
+      color: var(--tx-body);
+      line-height: 1.5;
+    }
+
+    .fb-img-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fb-img-wrap img {
+      width: min(340px, 80%);
+      filter: drop-shadow(0 20px 40px rgba(55, 85, 52, 0.18));
+      transition: transform 0.4s;
+    }
+
+    .fb-img-wrap:hover img {
+      transform: scale(1.04) rotate(-2deg);
+    }
+
+    @media (max-width: 700px) {
+      .bs-card {
+        flex-basis: calc((100% - 18px) / 2);
+      }
+
+      .carousel-arrow {
+        display: none;
+      }
+
+      .feature-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .fb-img-wrap {
+        order: -1;
+      }
+    }
+
+    /* ===== BRAND STORY ===== */
+    .story {
+      background: var(--white);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .story-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .story-img {
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .story-img img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .story-img:hover img {
+      transform: scale(1.04);
+    }
+
+    .story-img.tall {
+      grid-column: 1/-1;
+    }
+
+    .story-img.tall img {
+      height: 220px;
+    }
+
+    .story-img:not(.tall) img {
+      height: 160px;
+    }
+
+    .story-content .sec-desc {
+      max-width: 100%;
+    }
+
+    .story-bullets {
+      list-style: none;
+      margin: 24px 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .story-bullets li {
+      font-size: 13px;
+      color: var(--tx-body);
+      line-height: 1.7;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .story-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--c3);
+    }
+
+    .story-quote {
+      background: var(--c5);
+      color: var(--tx-light);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      line-height: 1.8;
+      font-style: italic;
+      border-left: 3px solid var(--c2);
+    }
+
+    /* ===== MENU SECTION ===== */
+    .menu-sec {
+      background: var(--white);
+    }
+
+    .menu-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    .menu-cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .menu-cat {
+      background: var(--c1);
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      border: 2px solid transparent;
+    }
+
+    .menu-cat:hover,
+    .menu-cat.active {
+      background: var(--c5);
+      color: var(--tx-light);
+      border-color: var(--c5);
+    }
+
+    .menu-cat .cat-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .menu-cat .cat-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .menu-cat .cat-count {
+      font-size: 11px;
+      opacity: 0.65;
+      margin-top: 2px;
+    }
+
+    /* ===== DELIVERY ===== */
+    .delivery {
+      background: var(--c5);
+    }
+
+    .delivery .sec-label {
+      color: var(--tx-light-sub);
+    }
+
+    .delivery .sec-title {
+      color: var(--tx-light);
+    }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .delivery-img {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .delivery-img img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      filter: brightness(0.85);
+    }
+
+    .delivery-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: 28px 0 32px;
+    }
+
+    .d-step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .d-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--tx-dark);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .d-content strong {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 3px;
+      color: var(--tx-light);
+    }
+
+    .d-content span {
+      font-size: 12px;
+      color: var(--tx-light-sub);
+      line-height: 1.6;
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pay-badge {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--tx-light);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ===== SUPPORT ===== */
+    .support {
+      background: var(--c1);
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .support-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .support-card:hover {
+      border-color: var(--c3);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(15, 42, 29, 0.1);
+    }
+
+    .support-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    .support-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--tx-dark);
+      margin-bottom: 8px;
+    }
+
+    .support-card p {
+      font-size: 12px;
+      color: var(--tx-body);
+      line-height: 1.7;
+    }
+
+    .support-card .s-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--tx-dark);
+      margin-top: 12px;
+      display: inline-block;
+    }
+
+    /* ===== NEWS ===== */
+    .news {
+      background: var(--white);
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 22px;
+    }
+
+    .news-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--c1);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 38px rgba(15, 42, 29, 0.1);
+    }
+
+    .news-img {
+      overflow: hidden;
+    }
+
+    .news-img img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .news-card:hover .news-img img {
+      transform: scale(1.06);
+    }
+
+    .news-card-main .news-img img {
+      height: 260px;
+    }
+
+    .news-card:not(.news-card-main) .news-img img {
+      height: 140px;
+    }
+
+    .news-body {
+      padding: 18px;
+    }
+
+    .news-cat {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 7px;
+      display: block;
+    }
+
+    .news-title {
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--tx-dark);
+      margin-bottom: 7px;
+    }
+
+    .news-card-main .news-title {
+      font-size: 20px;
+    }
+
+    .news-date {
+      font-size: 11px;
+      color: var(--tx-muted);
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      background: var(--c4);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 44px;
+    }
+
+    .contact .sec-label {
+      color: var(--tx-light);
+    }
+
+    .contact-brand-desc {
+      font-size: 13px;
+      color: var(--tx-light-sub);
+      line-height: 1.8;
+      margin: 14px 0 20px;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--tx-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .soc:hover {
+      background: var(--white);
+      color: var(--tx-dark);
+    }
+
+    .contact-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tx-light-sub);
+      margin-bottom: 18px;
+    }
+
+    .contact-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-col ul li {
+      font-size: 13px;
+      color: var(--tx-light-sub);
+      line-height: 1.6;
+    }
+
+    .contact-col ul li a {
+      color: var(--tx-light-sub);
+      transition: color 0.2s;
+    }
+
+    .contact-col ul li a:hover {
+      color: var(--tx-light);
+    }
+
+    .contact-col ul li strong {
+      color: var(--tx-light);
+      font-weight: 600;
+      display: block;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .footer-bottom {
+      margin-top: 44px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--tx-light-sub);
+    }
+
+    .quick-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .qbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--tx-light);
+      transition: all 0.2s;
+    }
+
+    .qbtn:hover {
+      transform: translateY(-2px);
+    }
+
+    .qbtn.line {
+      background: #06c755;
+    }
+
+    .qbtn.zalo {
+      background: #0068ff;
+    }
+
+    .qbtn.fb {
+      background: #1877f2;
+    }
+
+    /* ===== STICKY ===== */
+    .sticky {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .stk {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--tx-light);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
+
+    .stk:hover {
+      transform: scale(1.05) translateX(-3px);
+    }
+
+    .stk.ph {
+      background: var(--c4);
+    }
+
+    .stk.ln {
+      background: #06c755;
+    }
+
+    /* ===== FADE IN ===== */
+    .fi {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.65s ease;
+    }
+
+    .fi.vis {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-right {
+        display: none;
+      }
+
+      .hero-left {
+        padding: 50px 5vw 40px;
+      }
+
+      .hero-info-bar {
+        gap: 16px;
+      }
+
+      .info-item {
+        flex: 1 1 40%;
+      }
+
+      .story-grid,
+      .delivery-grid,
+      .menu-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .story-imgs {
+        order: 2;
+      }
+
+      .story-content {
+        order: 1;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .ham {
+        display: flex;
+      }
+
+      .bs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .bs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .bs-img {
+        height: 140px;
+      }
+
+      .sec {
+        padding: 50px 5vw;
+      }
+
+      .hero-title {
+        font-size: 36px;
+      }
+
+      .hero-sub {
+        font-size: 22px;
+      }
+
+      .hero-btns {
+        flex-direction: column;
+      }
+
+      .btn-green,
+      .btn-outline-light {
+        width: 100%;
+        text-align: center;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-info-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        gap: 8px 10px;
+        padding: 10px 4vw;
+      }
+
+      .info-item {
+        flex: initial;
+        gap: 6px;
+        font-size: 12px;
+      }
+
+      .info-item strong {
+        font-size: 12px;
+      }
+
+      .info-item span {
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      .hero-info-bar>div:last-child {
+        grid-column: 1 / -1;
+        display: flex !important;
+        gap: 8px !important;
+        flex-wrap: wrap;
+      }
+
+      .hero-info-bar .info-item-full {
+        grid-column: 1 / -1;
+      }
+
+      .hero-info-bar>div:last-child .qbtn {
+        padding: 7px 10px;
+        font-size: 11px;
+      }
+
+      .delivery-img img {
+        height: 260px;
+      }
+
+      .support-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-cat-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .sticky {
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .stk span.stk-label {
+        display: none;
+      }
+
+      .stk {
+        padding: 10px 12px;
+        border-radius: 50%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo"><span>Nana Cafe</span></div>
+      <div class="nav-links">
+        <a href="#home">Trang chủ</a>
+        <a href="#story">Thương hiệu</a>
+        <a href="#menu">Thực đơn</a>
+        <a href="#delivery">Giao hàng</a>
+        <a href="#support">Hỗ trợ</a>
+        <a href="#news">Tin tức</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+      <div class="nav-icons">
+        <button class="cart-btn">🛒 <span>Giỏ hàng</span></button>
+        <div class="ham" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="toggleMenu()">Trang chủ</a>
+    <a href="#story" onclick="toggleMenu()">Câu chuyện thương hiệu</a>
+    <a href="#menu" onclick="toggleMenu()">Thực đơn</a>
+    <a href="#delivery" onclick="toggleMenu()">Giao hàng tận nơi</a>
+    <a href="#support" onclick="toggleMenu()">Hỗ trợ khách hàng</a>
+    <a href="#news" onclick="toggleMenu()">Tin tức</a>
+    <a href="#contact" onclick="toggleMenu()">Liên hệ</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-left">
+      <p class="hero-label">📍 Nishikawaguchi, Saitama — Nhật Bản</p>
+      <div class="hero-sub">Chào mừng đến với</div>
+      <h1 class="hero-title">Nana Cafe</h1>
+      <p class="hero-desc">
+        Một góc nhỏ mang hương vị Việt giữa lòng Nhật Bản — nơi mỗi bữa ăn là
+        một hành trình cảm xúc.
+      </p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-green">🍜 Xem thực đơn</a>
+        <a href="#delivery" class="btn-outline-light">🛵 Đặt giao hàng</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <img class="hero-img-main" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80"
+          alt="Nana Cafe" onerror="
+              this.style.background =
+                'linear-gradient(135deg,var(--c3),var(--c5))'
+            " />
+        <div class="hero-badge">
+          <strong>⭐ 4.9</strong><span>Khách hàng đánh giá</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="hero-info-bar">
+    <div class="info-item">
+      📞
+      <div><strong>080-5985-7879</strong><span>Đặt bàn / Gọi món</span></div>
+    </div>
+    <div class="info-item">
+      🕙
+      <div><strong>10:00 — 22:00</strong><span>Thứ 2 — Chủ nhật</span></div>
+    </div>
+    <div class="info-item info-item-full">
+      🚉
+      <div>
+        <strong>2 phút từ ga Nishi Kawaguchi</strong><span>埼玉県川口市並木2-3-27-1F</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap">
+      <a href="#" class="qbtn fb">📘 Facebook</a>
+      <a href="#" class="qbtn line">💬 LINE</a>
+    </div>
+  </div>
+
+  <!-- BESTSELLER / MENU -->
+  <section class="bestseller sec" id="bestseller">
+    <div class="sec-header fi">
+      <div>
+        <p class="sec-label">Thực Đơn</p>
+        <h2 class="sec-title">Món ngon tại Nana Cafe</h2>
+      </div>
+      <a class="view-all" href="#menu">Xem toàn bộ thực đơn →</a>
+    </div>
+    <div class="bs-tabs fi">
+      <button class="bs-tab active">Tất cả</button>
+      <button class="bs-tab">Bún · Phở</button>
+      <button class="bs-tab">Cơm tấm</button>
+      <button class="bs-tab">Mì cay</button>
+      <button class="bs-tab">Trà sữa</button>
+      <button class="bs-tab">Trà · Nước</button>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="bs-carousel-wrap fi" style="margin-bottom: 22px">
+      <button class="carousel-arrow prev">&#8249;</button>
+      <div class="bs-carousel-viewport">
+        <div class="bs-carousel">
+          <div class="bs-card">
+            <div class="bs-img">
+              <div class="bs-badge">Bán chạy #1</div>
+              <img src="https://images.unsplash.com/photo-1576577445504-6af96477db52?w=400&q=70" alt="Bún bò Huế"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Bún Bò Huế</div>
+              <div class="bs-desc">Nước dùng sả cay đặc trưng xứ Huế</div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥980</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <div class="bs-badge" style="background: var(--c3)">Mới</div>
+              <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&q=70" alt="Mì cay"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Mì Cay Đặc Biệt</div>
+              <div class="bs-desc">Cấp độ 1–5 · Hải sản tươi</div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥1,200</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=70" alt="Cơm tấm"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Cơm Tấm Sườn Bì</div>
+              <div class="bs-desc">Sườn nướng mật ong, bì, chả trứng</div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥1,100</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&q=70" alt="Bún thịt nướng"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Bún Thịt Nướng</div>
+              <div class="bs-desc">
+                Thịt nướng than, rau sống, nước mắm chua ngọt
+              </div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥880</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <div class="bs-badge" style="background: var(--c3)">
+                Đặc trưng
+              </div>
+              <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=70" alt="Trà sữa"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Trà Sữa Kem Trứng Dừa Nướng</div>
+              <div class="bs-desc">Kem trứng béo thơm · Nana exclusive</div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥680</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <img src="https://images.unsplash.com/photo-1499638673689-79a0b5115d87?w=400&q=70" alt="Trà đào"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Trà Đào Cam Sả</div>
+              <div class="bs-desc">
+                Thanh mát, thơm sả — quốc dân không bao giờ lỗi mốt
+              </div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥580</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=70" alt="Bánh mì"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Bánh Mì Thịt Nướng</div>
+              <div class="bs-desc">
+                Bánh nướng giòn tan, đồ chua, rau thơm
+              </div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥680</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+          <div class="bs-card">
+            <div class="bs-img">
+              <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=70" alt="Chè"
+                onerror="this.style.background = '#d4b896'" />
+            </div>
+            <div class="bs-body">
+              <div class="bs-name">Chè Khúc Bạch</div>
+              <div class="bs-desc">
+                Khúc bạch mềm mịn, hạnh nhân, nước đường thơm
+              </div>
+            </div>
+            <div class="bs-footer">
+              <span class="bs-price">¥480</span><button class="to-cart-btn">Đặt món</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow next">&#8250;</button>
+    </div>
+
+    <div style="text-align: center; margin-top: 36px" class="fi">
+      <a href="#" class="btn-green" style="display: inline-block">Xem thêm món</a>
+    </div>
+  </section>
+
+  <!-- FEATURE BANNER — New item highlight -->
+  <div class="feature-banner fi" id="menu">
+    <div>
+      <p class="fb-label">Món nổi bật</p>
+      <span class="fb-kicker">thêm mới</span>
+      <div class="fb-title">Trà Sữa<br />Kem Trứng</div>
+      <div class="fb-item-name">Dừa Nướng Đặc Biệt</div>
+      <p class="fb-item-desc">
+        Kem trứng béo thơm phủ trên nền trà sữa tươi lạnh, điểm xuyết dừa
+        nướng thơm lừng — đặc trưng chỉ có tại Nana Cafe.
+      </p>
+      <div class="fb-price-row">
+        <span class="fb-price-new">¥680</span>
+        <span class="fb-price-old">¥850</span>
+      </div>
+      <div class="fb-stats">
+        <div class="fb-stat">
+          <strong>3</strong><span>Loại topping<br />kem · dừa · trân châu</span>
+        </div>
+        <div class="fb-stat">
+          <strong>Có</strong><span>Tùy chỉnh<br />lượng đường & đá</span>
+        </div>
+        <div class="fb-stat">
+          <strong>20%</strong><span>Giảm giá<br />tháng 5</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-img-wrap">
+      <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&q=80" alt="Trà sữa kem trứng dừa nướng"
+        onerror="
+            this.style.background = 'var(--c2)';
+            this.style.width = '260px';
+            this.style.height = '340px';
+            this.style.borderRadius = '20px';
+          " />
+    </div>
+  </div>
+
+  <!-- BRAND STORY -->
+  <section class="story sec" id="story">
+    <div class="story-grid">
+      <div class="story-imgs fi">
+        <div class="story-img tall">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=70" alt="Nana Cafe" onerror="
+                this.style.background = 'var(--c3)';
+                this.style.height = '220px';
+              " />
+        </div>
+        <div class="story-img">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" alt="Món ăn" onerror="
+                this.style.background = 'var(--c4)';
+                this.style.height = '160px';
+              " />
+        </div>
+        <div class="story-img">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&q=70" alt="Không gian" onerror="
+                this.style.background = 'var(--c2)';
+                this.style.height = '160px';
+              " />
+        </div>
+      </div>
+      <div class="story-content fi">
+        <p class="sec-label">Câu chuyện thương hiệu</p>
+        <h2 class="sec-title">Một góc quê hương<br />nơi đất Nhật</h2>
+        <ul class="story-bullets">
+          <li>
+            Tọa lạc tại Nishikawaguchi, Nana Cafe là một góc nhỏ mang hương vị
+            Việt — nơi chỉ cần ghé qua, bạn đã có thể chạm đến sự thân quen
+            giữa những ngày xa quê.
+          </li>
+          <li>
+            Một điểm hẹn mang phong cách cafe Việt, nơi trà sữa và ẩm thực
+            Việt cùng hiện diện — từ bún bò Huế trứ danh, mì cay, đến ly trà
+            sữa béo thơm.
+          </li>
+          <li>
+            Nana luôn không ngừng làm mới menu, mỗi món đều có màu sắc riêng —
+            dễ ăn, dễ nhớ và dễ "ghiền".
+          </li>
+        </ul>
+        <div class="story-quote">
+          "Mỗi lần ghé Nana không chỉ là một bữa ăn, mà là một hành trình cảm
+          xúc — nơi những hương vị quen thuộc luôn được làm mới, vừa gần gũi
+          vừa đầy hứng khởi."
+        </div>
+        <div style="display: flex; gap: 36px; flex-wrap: wrap">
+          <div>
+            <strong style="
+                  font-family: &quot;Playfair Display&quot;, serif;
+                  font-size: 32px;
+                  color: var(--c3);
+                ">2024</strong><br /><span style="
+                  font-size: 11px;
+                  color: var(--gray);
+                  text-transform: uppercase;
+                  letter-spacing: 0.06em;
+                ">Thành lập</span>
+          </div>
+          <div>
+            <strong style="
+                  font-family: &quot;Playfair Display&quot;, serif;
+                  font-size: 32px;
+                  color: var(--c3);
+                ">8K+</strong><br /><span style="
+                  font-size: 11px;
+                  color: var(--gray);
+                  text-transform: uppercase;
+                  letter-spacing: 0.06em;
+                ">Người yêu thích</span>
+          </div>
+          <div>
+            <strong style="
+                  font-family: &quot;Playfair Display&quot;, serif;
+                  font-size: 32px;
+                  color: var(--c3);
+                ">50+</strong><br /><span style="
+                  font-size: 11px;
+                  color: var(--gray);
+                  text-transform: uppercase;
+                  letter-spacing: 0.06em;
+                ">Món trong thực đơn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERY -->
+  <section class="delivery sec" id="delivery">
+    <div class="delivery-grid">
+      <div class="fi">
+        <p class="sec-label">Giao Hàng Tận Nơi</p>
+        <h2 class="sec-title">Nana Cafe ship đến tận cửa nhà</h2>
+        <p style="
+              font-size: 14px;
+              color: rgba(255, 255, 255, 0.75);
+              line-height: 1.8;
+              max-width: 460px;
+              margin-bottom: 24px;
+            ">
+          Không cần ra ngoài — Nana mang hương vị Việt Nam đến tận nơi bạn ở.
+          Phục vụ toàn khu vực Kawaguchi và lân cận.
+        </p>
+        <div class="delivery-steps">
+          <div class="d-step">
+            <div class="d-num">1</div>
+            <div class="d-content">
+              <strong>Xác nhận thông tin đặt hàng</strong><span>Chọn món, số lượng và địa chỉ nhận hàng</span>
+            </div>
+          </div>
+          <div class="d-step">
+            <div class="d-num">2</div>
+            <div class="d-content">
+              <strong>Chọn hình thức thanh toán</strong><span>Chuyển khoản Yucho · Thanh toán khi nhận (Daibiki) · CK
+                tiền
+                Việt · PayPay</span>
+            </div>
+          </div>
+          <div class="d-step">
+            <div class="d-num">3</div>
+            <div class="d-content">
+              <strong>Xác nhận qua email</strong><span>Chúng tôi gửi email xác nhận đơn hàng sau khi tiếp nhận</span>
+            </div>
+          </div>
+          <div class="d-step">
+            <div class="d-num">4</div>
+            <div class="d-content">
+              <strong>Nhận hàng</strong><span>Thời gian giao hàng trung bình 30–45 phút trong khu vực</span>
+            </div>
+          </div>
+        </div>
+        <p style="
+              font-size: 12px;
+              color: rgba(255, 255, 255, 0.6);
+              margin-bottom: 12px;
+              font-weight: 600;
+              letter-spacing: 0.06em;
+              text-transform: uppercase;
+            ">
+          Thanh toán
+        </p>
+        <div class="payment-methods">
+          <span class="pay-badge">🏦 Yucho Bank</span>
+          <span class="pay-badge">💴 Daibiki</span>
+          <span class="pay-badge">🇻🇳 CK Việt Nam</span>
+          <span class="pay-badge">📱 PayPay</span>
+        </div>
+      </div>
+      <div class="delivery-img fi">
+        <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80" alt="Giao hàng"
+          onerror="this.style.background = 'var(--c3)'" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section class="support sec" id="support">
+    <div class="sec-header fi">
+      <div>
+        <p class="sec-label">Hỗ Trợ Khách Hàng</p>
+        <h2 class="sec-title">Chúng tôi luôn sẵn sàng</h2>
+      </div>
+    </div>
+    <div class="support-grid fi">
+      <div class="support-card">
+        <div class="support-icon">📦</div>
+        <h3>Hướng dẫn mua hàng</h3>
+        <p>
+          Quy trình đặt hàng đơn giản 4 bước từ chọn món đến nhận hàng tận
+          nơi.
+        </p>
+        <a class="s-link" href="#delivery">Xem hướng dẫn →</a>
+      </div>
+      <div class="support-card">
+        <div class="support-icon">🚚</div>
+        <h3>Chi phí vận chuyển</h3>
+        <p>
+          Miễn phí giao hàng trong bán kính 3km. Phí vận chuyển được tính theo
+          khoảng cách từ quán đến địa chỉ nhận.
+        </p>
+        <a class="s-link" href="#contact">Hỏi thêm →</a>
+      </div>
+      <div class="support-card">
+        <div class="support-icon">📍</div>
+        <h3>Tình trạng giao hàng</h3>
+        <p>
+          Theo dõi đơn hàng qua LINE hoặc Zalo. Chúng tôi cập nhật tình trạng
+          theo thời gian thực.
+        </p>
+        <a class="s-link" href="#">Theo dõi đơn →</a>
+      </div>
+      <div class="support-card">
+        <div class="support-icon">↩️</div>
+        <h3>Khiếu nại & Hoàn trả</h3>
+        <p>
+          Nếu đơn hàng có vấn đề, hãy liên hệ ngay trong vòng 30 phút sau khi
+          nhận. Chúng tôi cam kết giải quyết nhanh chóng.
+        </p>
+        <a class="s-link" href="#contact">Liên hệ ngay →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="news sec" id="news">
+    <div class="sec-header fi">
+      <div>
+        <p class="sec-label">Tin Tức & Ưu Đãi</p>
+        <h2 class="sec-title">Chuyện mới từ Nana Cafe</h2>
+      </div>
+      <a class="view-all" href="#">Tất cả tin tức →</a>
+    </div>
+    <div class="news-grid fi">
+      <div class="news-card news-card-main">
+        <div class="news-img">
+          <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=700&q=70" alt="news"
+            onerror="this.style.background = 'var(--c3)'" />
+        </div>
+        <div class="news-body">
+          <span class="news-cat">🎉 Khuyến mãi</span>
+          <div class="news-title">
+            Tháng 5 — Mua 2 tô bún bò tặng 1 trà sữa cho nhóm từ 3 người!
+          </div>
+          <div class="news-date">01/05/2025</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=70" alt="news2"
+            onerror="this.style.background = 'var(--c4)'" />
+        </div>
+        <div class="news-body">
+          <span class="news-cat">🍜 Món mới</span>
+          <div class="news-title">
+            Ra mắt Cơm Tấm Sườn Đặc Biệt — phiên bản giới hạn
+          </div>
+          <div class="news-date">20/04/2025</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img">
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=70" alt="news3"
+            onerror="this.style.background = 'var(--c2)'" />
+        </div>
+        <div class="news-body">
+          <span class="news-cat">📢 Thông báo</span>
+          <div class="news-title">
+            Nana Cafe cảm ơn 8.000 bạn yêu quý fanpage!
+          </div>
+          <div class="news-date">10/04/2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact sec" id="contact">
+    <div class="contact-grid fi">
+      <div>
+        <div style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-size: 26px;
+              font-weight: 900;
+              color: #fff;
+              margin-bottom: 4px;
+            ">
+          <span style="color: var(--c2)">Nana Cafe</span>
+        </div>
+        <p class="contact-brand-desc">
+          Hương vị Việt Nam giữa lòng Nhật Bản.<br />Bún · Phở · Cơm · Mì Cay
+          · Trà Sữa.
+        </p>
+        <div class="social-row">
+          <div class="soc">f</div>
+          <div class="soc" style="font-size: 11px">ig</div>
+          <div class="soc" style="font-size: 11px">tt</div>
+          <div class="soc" style="background: #06c755">L</div>
+          <div class="soc" style="background: #0068ff; font-size: 10px">
+            Z
+          </div>
+        </div>
+      </div>
+      <div class="contact-col">
+        <h4>Trang</h4>
+        <ul>
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#story">Câu chuyện thương hiệu</a></li>
+          <li><a href="#menu">Thực đơn</a></li>
+          <li><a href="#delivery">Giao hàng tận nơi</a></li>
+          <li><a href="#support">Hỗ trợ khách hàng</a></li>
+          <li><a href="#news">Tin tức</a></li>
+        </ul>
+      </div>
+      <div class="contact-col">
+        <h4>Liên hệ</h4>
+        <ul>
+          <li><strong>📍 Địa chỉ</strong>埼玉県川口市並木2-3-27-1F</li>
+          <li><strong>🚉 Gần ga</strong>Nishi Kawaguchi Đông — 2 phút</li>
+          <li><strong>📞 Điện thoại</strong>080-5985-7879</li>
+          <li><strong>⏰ Giờ mở cửa</strong>10:00 — 22:00 (Thứ 2 – CN)</li>
+        </ul>
+      </div>
+      <div class="contact-col">
+        <h4>Nhắn tin nhanh</h4>
+        <ul>
+          <li style="margin-bottom: 8px">
+            <a href="#" class="qbtn fb" style="display: inline-flex">📘 Facebook</a>
+          </li>
+          <li style="margin-bottom: 8px">
+            <a href="#" class="qbtn line" style="display: inline-flex">💬 LINE</a>
+          </li>
+          <li>
+            <a href="#" class="qbtn zalo" style="display: inline-flex">💙 Zalo</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Nana Cafe — Nishikawaguchi. All rights reserved.</p>
+      <p style="color: var(--c2)">Nấu bằng ❤️ — Hương vị quê nhà</p>
+    </div>
+  </section>
+
+  <!-- STICKY -->
+  <div class="sticky">
+    <a class="stk ph" href="tel:08059857879">📞 <span class="stk-label">080-5985-7879</span></a>
+    <a class="stk ln" href="#">💬 <span class="stk-label">Nhắn LINE</span></a>
+  </div>
+
+  <script>
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById("mobileMenu").classList.toggle("open");
+    }
+
+    // Tab switch
+    document.querySelectorAll(".bs-tab").forEach((t) => {
+      t.addEventListener("click", () => {
+        document
+          .querySelectorAll(".bs-tab")
+          .forEach((x) => x.classList.remove("active"));
+        t.classList.add("active");
+      });
+    });
+    document.querySelectorAll(".menu-cat").forEach((t) => {
+      t.addEventListener("click", () => {
+        document
+          .querySelectorAll(".menu-cat")
+          .forEach((x) => x.classList.remove("active"));
+        t.classList.add("active");
+      });
+    });
+
+    // Product carousel (show 4 items by default on desktop)
+    document.querySelectorAll(".bs-carousel-wrap").forEach((wrap) => {
+      const carousel = wrap.querySelector(".bs-carousel");
+      const cards = carousel
+        ? Array.from(carousel.querySelectorAll(".bs-card"))
+        : [];
+      const prevBtn = wrap.querySelector(".carousel-arrow.prev");
+      const nextBtn = wrap.querySelector(".carousel-arrow.next");
+      let index = 0;
+
+      if (!carousel || cards.length === 0 || !prevBtn || !nextBtn) return;
+
+      function getPerView() {
+        return window.innerWidth <= 700 ? 2 : 4;
+      }
+
+      function getMaxIndex() {
+        return Math.max(0, cards.length - getPerView());
+      }
+
+      function updateCarousel() {
+        const firstCard = cards[0];
+        const cardWidth = firstCard
+          ? firstCard.getBoundingClientRect().width
+          : 0;
+        const style = window.getComputedStyle(carousel);
+        const gap = parseFloat(style.columnGap || style.gap || "0");
+        const offset = (cardWidth + gap) * index;
+        carousel.style.transform = `translateX(-${offset}px)`;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index >= getMaxIndex();
+      }
+
+      prevBtn.addEventListener("click", () => {
+        const step = getPerView();
+        index = Math.max(0, index - step);
+        updateCarousel();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        const step = getPerView();
+        index = Math.min(getMaxIndex(), index + step);
+        updateCarousel();
+      });
+
+      window.addEventListener("resize", () => {
+        index = Math.min(index, getMaxIndex());
+        updateCarousel();
+      });
+
+      updateCarousel();
+    });
+
+    // Fade in
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("vis");
+        });
+      },
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll(".fi").forEach((el) => obs.observe(el));
+
+    // Close menu on outside click
+    document.addEventListener("click", (e) => {
+      const m = document.getElementById("mobileMenu");
+      if (
+        m.classList.contains("open") &&
+        !m.contains(e.target) &&
+        !e.target.closest(".ham")
+      )
+        m.classList.remove("open");
+    });
+  </script>
+</body>
+
+</html>

@@ -1,128 +1,149 @@
 <!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nana Cafe</title>
-  <style>
-    :root {
-      color-scheme: light dark;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      background: #111;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      padding: 12px;
-      background: #1b1b1b;
-      border-bottom: 1px solid #333;
-      color: #f5f5f5;
-    }
-
-    label {
-      font-weight: 600;
-    }
-
-    select,
-    button {
-      height: 36px;
-      border: 1px solid #555;
-      background: #222;
-      color: #fff;
-      border-radius: 8px;
-      padding: 0 10px;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .hint {
-      margin-left: auto;
-      font-size: 13px;
-      opacity: 0.8;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #fff;
-    }
-  </style>
-</head>
-<body>
-  <div class="toolbar">
-    <label for="pageSelect">Hiển thị file:</label>
-    <select id="pageSelect">
-      <option value="template/nana-cafe-homepage-v5.html" selected>nana-cafe-homepage-v5.html</option>
-      <option value="template/nana-cafe-homepage-v4.html">nana-cafe-homepage-v4.html</option>
-      <option value="template/nana-cafe-homepage-v2.html">nana-cafe-homepage-v2.html</option>
-      <!-- <option value="template/nana-cafe-homepage-v1.html">nana-cafe-homepage-v1.html</option> -->
-    </select>
-    <button id="openBtn" type="button">Mở file</button>
-    <span class="hint">Có thể dùng URL: ?page=template/nana-cafe-homepage-v4.html</span>
-  </div>
-
-  <iframe id="preview" title="Template preview"></iframe>
-
-  <script>
-    (function () {
-      var STORAGE_KEY = "nana-cafe-selected-page";
-      var select = document.getElementById("pageSelect");
-      var openBtn = document.getElementById("openBtn");
-      var preview = document.getElementById("preview");
-
-      function isValidOption(value) {
-        return Array.from(select.options).some(function (opt) {
-          return opt.value === value;
-        });
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nana Cafe</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
       }
 
-      function getPageFromUrl() {
-        var params = new URLSearchParams(window.location.search);
-        var page = params.get("page");
-        return page && isValidOption(page) ? page : null;
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        background: #111;
       }
 
-      function loadPage(value, replaceHistory) {
-        if (!isValidOption(value)) return;
-        select.value = value;
-        preview.src = value;
-        localStorage.setItem(STORAGE_KEY, value);
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 12px;
+        background: #1b1b1b;
+        border-bottom: 1px solid #333;
+        color: #f5f5f5;
+      }
 
-        var nextUrl = window.location.pathname + "?page=" + encodeURIComponent(value);
-        if (replaceHistory) {
-          history.replaceState({}, "", nextUrl);
-        } else {
-          history.pushState({}, "", nextUrl);
+      label {
+        font-weight: 600;
+      }
+
+      select,
+      button {
+        height: 36px;
+        border: 1px solid #555;
+        background: #222;
+        color: #fff;
+        border-radius: 8px;
+        padding: 0 10px;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .hint {
+        margin-left: auto;
+        font-size: 13px;
+        opacity: 0.8;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <label for="pageSelect">Hiển thị file:</label>
+      <select id="pageSelect">
+        <option value="template/nana-cafe-homepage-v7.html" selected>
+          nana-cafe-homepage-v7.html
+        </option>
+        <!-- <option value="template/nana-cafe-homepage-v6.html">nana-cafe-homepage-v6.html</option> -->
+        <option value="template/nana-cafe-homepage-v5.html">
+          nana-cafe-homepage-v5.html
+        </option>
+        <option value="template/nana-cafe-homepage-v4.html">
+          nana-cafe-homepage-v4.html
+        </option>
+        <option value="template/nana-cafe-homepage-v2.html">
+          nana-cafe-homepage-v2.html
+        </option>
+        <!-- <option value="template/nana-cafe-homepage-v1.html">nana-cafe-homepage-v1.html</option> -->
+      </select>
+      <button id="openBtn" type="button">Mở file</button>
+      <span class="hint"
+        >Có thể dùng URL: ?page=template/nana-cafe-homepage-v4.html</span
+      >
+    </div>
+
+    <iframe id="preview" title="Template preview"></iframe>
+
+    <script>
+      (function () {
+        var STORAGE_KEY = "nana-cafe-selected-page";
+        var select = document.getElementById("pageSelect");
+        var openBtn = document.getElementById("openBtn");
+        var preview = document.getElementById("preview");
+
+        function isValidOption(value) {
+          return Array.from(select.options).some(function (opt) {
+            return opt.value === value;
+          });
         }
-      }
 
-      var initialPage =
-        getPageFromUrl() ||
-        (isValidOption(localStorage.getItem(STORAGE_KEY)) ? localStorage.getItem(STORAGE_KEY) : null) ||
-        select.options[0].value;
+        function getPageFromUrl() {
+          var params = new URLSearchParams(window.location.search);
+          var page = params.get("page");
+          return page && isValidOption(page) ? page : null;
+        }
 
-      loadPage(initialPage, true);
+        function loadPage(value, replaceHistory) {
+          if (!isValidOption(value)) return;
+          select.value = value;
+          preview.src = value;
+          localStorage.setItem(STORAGE_KEY, value);
 
-      openBtn.addEventListener("click", function () {
-        loadPage(select.value, false);
-      });
+          var nextUrl =
+            window.location.pathname + "?page=" + encodeURIComponent(value);
+          if (replaceHistory) {
+            history.replaceState({}, "", nextUrl);
+          } else {
+            history.pushState({}, "", nextUrl);
+          }
+        }
 
-      select.addEventListener("change", function () {
-        loadPage(select.value, false);
-      });
-    })();
-  </script>
-</body>
+        var initialPage =
+          getPageFromUrl() ||
+          (isValidOption(localStorage.getItem(STORAGE_KEY))
+            ? localStorage.getItem(STORAGE_KEY)
+            : null) ||
+          select.options[0].value;
+
+        loadPage(initialPage, true);
+
+        openBtn.addEventListener("click", function () {
+          loadPage(select.value, false);
+        });
+
+        select.addEventListener("change", function () {
+          loadPage(select.value, false);
+        });
+      })();
+    </script>
+  </body>
 </html>
