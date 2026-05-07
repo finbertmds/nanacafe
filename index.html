@@ -88,7 +88,6 @@
         </option>
         <!-- <option value="template/nana-cafe-homepage-v1.html">nana-cafe-homepage-v1.html</option> -->
       </select>
-      <button id="openBtn" type="button">Mở file</button>
       <span class="hint"
         >Có thể dùng URL: ?page=template/nana-cafe-homepage-v4.html</span
       >
@@ -124,7 +123,7 @@
           var nextUrl =
             window.location.pathname + "?page=" + encodeURIComponent(value);
           document.querySelector(".hint").innerHTML =
-            "Có thể dùng URL: <a href='" + nextUrl + "'>" + nextUrl + "</a>";
+            "Có thể dùng URL: <a href='" + nextUrl + "'>" + LINK + "</a>";
           if (replaceHistory) {
             history.replaceState({}, "", nextUrl);
           } else {
