@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nana Cafe - Coffee & Nature. Trải nghiệm hương vị Việt Nam tại Nhật Bản." />
+  <title>Nana Cafe – Coffee & Nature</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'nana-dark': '#1a2e1a',
+            'nana-green': '#2d5a27',
+            'nana-mid': '#3d7035',
+            'nana-light': '#5a9e4e',
+            'nana-cream': '#f5f0e8',
+            'nana-warm': '#f9f5ed',
+            'nana-gold': '#d4a843',
+            'nana-orange': '#e8883a',
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['Be Vietnam Pro', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Be Vietnam Pro', sans-serif; background: #f5f0e8; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #2d5a27; border-radius: 3px; }
+
+    /* Sticky header */
+    #main-header { transition: box-shadow 0.3s; }
+    #main-header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+
+    /* Hero overlay */
+    .hero-overlay { background: linear-gradient(to right, rgba(26,46,26,0.55) 0%, rgba(26,46,26,0.1) 60%, transparent 100%); }
+
+    /* Card hover */
+    .menu-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.13); }
+
+    /* Button hover */
+    .btn-order { transition: background 0.2s, transform 0.15s; }
+    .btn-order:hover { transform: scale(1.03); }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Category filter active */
+    .cat-btn.active { background: #1a2e1a; color: #fff; }
+    .cat-btn { transition: background 0.2s, color 0.2s; }
+
+    /* Feature banner gradient */
+    .feature-banner { background: linear-gradient(135deg, #e8ede0 0%, #d6e4c8 50%, #c4d9af 100%); }
+
+    /* News card hover */
+    .news-card:hover .news-img { transform: scale(1.04); }
+    .news-img { transition: transform 0.3s; }
+
+    /* Mobile menu */
+    #mobile-menu { transition: max-height 0.35s ease, opacity 0.3s; max-height: 0; overflow: hidden; opacity: 0; }
+    #mobile-menu.open { max-height: 400px; opacity: 1; }
+
+    /* Horizontal scroll for menu on mobile */
+    .menu-scroll { -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .menu-scroll::-webkit-scrollbar { display: none; }
+
+    /* Stats badge */
+    .stat-badge { background: white; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+    /* Delivery section */
+    .delivery-section { background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 60%, #3d7035 100%); }
+
+    /* Support icon circle */
+    .support-icon { background: #1a2e1a; }
+
+    /* Freeship badge */
+    .freeship-badge { background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.3); backdrop-filter: blur(8px); }
+
+    /* Underline decoration */
+    .section-label { letter-spacing: 0.12em; }
+
+    /* Best seller badge */
+    .bestseller { background: #1a2e1a; }
+
+    @media (max-width: 768px) {
+      .hero-cards { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body class="bg-nana-cream text-gray-800">
+
+<!-- ==================== HEADER ==================== -->
+<header id="main-header" class="bg-nana-dark sticky top-0 z-50">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 flex items-center justify-between h-16 lg:h-[68px]">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-2.5 shrink-0" aria-label="Nana Cafe Home">
+      <div class="w-9 h-9 rounded-full border-2 border-white/60 flex items-center justify-center shrink-0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+          <path d="M9 9h.01M15 9h.01"/>
+          <path d="M7 7c1-2 9-2 10 0"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-white font-bold text-base leading-tight tracking-wide">NANA CAFE</div>
+        <div class="text-white/50 text-[9px] tracking-[0.2em] uppercase">Coffee & Nature</div>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-7 text-white/85 text-[14px] font-medium">
+      <a href="#" class="hover:text-white transition-colors">Trang chủ</a>
+      <a href="#menu" class="hover:text-white transition-colors">Menu</a>
+      <a href="#about" class="hover:text-white transition-colors">Câu chuyện</a>
+      <a href="#news" class="hover:text-white transition-colors">Tin tức</a>
+      <a href="#footer" class="hover:text-white transition-colors">Liên hệ</a>
+    </nav>
+
+    <!-- Right buttons -->
+    <div class="hidden lg:flex items-center gap-2.5">
+      <button class="text-white/80 hover:text-white p-1.5" aria-label="Tài khoản">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </button>
+      <button class="border border-white/60 text-white text-[13px] font-semibold px-4 py-2 rounded-full hover:bg-white hover:text-nana-dark transition-all">Đặt bàn</button>
+      <button class="bg-white text-nana-dark text-[13px] font-semibold px-4 py-2 rounded-full hover:bg-nana-cream transition-all">Đặt hàng online</button>
+    </div>
+
+    <!-- Hamburger -->
+    <button id="hamburger" class="lg:hidden text-white p-1.5" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden bg-nana-dark border-t border-white/10 px-4">
+    <nav class="flex flex-col py-3 gap-1">
+      <a href="#" class="text-white/85 py-2.5 text-[14px] font-medium border-b border-white/10">Trang chủ</a>
+      <a href="#menu" class="text-white/85 py-2.5 text-[14px] font-medium border-b border-white/10">Menu</a>
+      <a href="#about" class="text-white/85 py-2.5 text-[14px] font-medium border-b border-white/10">Câu chuyện</a>
+      <a href="#news" class="text-white/85 py-2.5 text-[14px] font-medium border-b border-white/10">Tin tức</a>
+      <a href="#footer" class="text-white/85 py-2.5 text-[14px] font-medium">Liên hệ</a>
+      <div class="flex gap-2 py-3">
+        <button class="flex-1 border border-white/60 text-white text-[13px] font-semibold py-2 rounded-full">Đặt bàn</button>
+        <button class="flex-1 bg-white text-nana-dark text-[13px] font-semibold py-2 rounded-full">Đặt hàng online</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<section class="bg-nana-dark">
+  <!-- Hero image area with card overlay -->
+  <div class="relative overflow-hidden" style="height: 300px;">
+    <img
+      src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1600&auto=format&fit=crop&q=80"
+      alt="Nana Cafe interior"
+      loading="lazy"
+      class="w-full h-full object-cover object-center"
+    />
+    <!-- Subtle dark overlay on left only -->
+    <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(20,38,20,0.35) 0%, transparent 55%);"></div>
+
+    <!-- Quick action links — top left over image -->
+    <div class="absolute top-3 left-4 lg:left-8 flex items-center gap-5 z-10">
+      <button class="flex items-center gap-1.5 text-white/95 text-[12px] font-medium hover:text-white transition-colors drop-shadow">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Xem thực đơn
+      </button>
+      <button class="flex items-center gap-1.5 text-white/95 text-[12px] font-medium hover:text-white transition-colors drop-shadow">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Đặt giao hàng
+      </button>
+    </div>
+
+    <!-- Table status card — bottom left over image -->
+    <div class="absolute bottom-5 left-4 lg:left-8 z-10 bg-white rounded-2xl shadow-2xl px-5 py-4 min-w-[200px]">
+      <div class="flex items-center gap-2 mb-2">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a2e1a" stroke-width="1.8">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20M7 5v14M17 5v14"/>
+        </svg>
+        <div class="flex gap-3">
+          <button class="text-[11px] text-gray-500 hover:text-nana-dark font-medium transition-colors">Xem thực đơn</button>
+          <span class="text-gray-200">|</span>
+          <button class="text-[11px] text-gray-500 hover:text-nana-dark font-medium transition-colors">Đặt giao hàng</button>
+        </div>
+      </div>
+      <div class="flex items-end gap-1 leading-none mb-1">
+        <span class="font-display text-5xl font-bold text-nana-dark">2</span>
+        <span class="font-display text-3xl text-nana-dark/35 mb-0.5">/ 3</span>
+      </div>
+      <div class="text-[12px] text-gray-500">Bàn đang phục vụ</div>
+    </div>
+
+    <!-- Rating card — bottom right over image -->
+    <div class="absolute bottom-5 right-4 lg:right-8 z-10 bg-white rounded-2xl shadow-2xl px-4 py-3 min-w-[190px]">
+      <div class="flex items-center gap-1.5 mb-0.5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span class="font-bold text-[18px] text-gray-900 leading-none">4.9</span>
+      </div>
+      <div class="text-[11px] text-gray-400 mb-2.5">Đánh giá từ 230+ khách hàng</div>
+      <div class="flex -space-x-1.5">
+        <img class="w-7 h-7 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/40?img=1" alt="reviewer" />
+        <img class="w-7 h-7 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/40?img=5" alt="reviewer" />
+        <img class="w-7 h-7 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/40?img=9" alt="reviewer" />
+        <img class="w-7 h-7 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/40?img=12" alt="reviewer" />
+        <div class="w-7 h-7 rounded-full border-2 border-white bg-nana-green flex items-center justify-center text-[10px] text-white font-bold">+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info bar — solid dark green strip below image -->
+  <div class="bg-nana-dark px-4 lg:px-8 py-4 flex flex-wrap items-center gap-x-6 gap-y-3 lg:gap-x-10">
+    <!-- Phone -->
+    <div class="flex items-center gap-2.5">
+      <svg width="20" height="20" fill="none" stroke="#7ec87a" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      <div>
+        <div class="text-white text-[13px] font-semibold leading-tight">080-6986-7879</div>
+        <div class="text-white/45 text-[11px]">Gọi cho chúng tôi</div>
+      </div>
+    </div>
+
+    <div class="hidden sm:block h-7 w-px bg-white/15"></div>
+
+    <!-- Hours -->
+    <div class="flex items-center gap-2.5">
+      <svg width="20" height="20" fill="none" stroke="#7ec87a" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <div>
+        <div class="text-white text-[13px] font-semibold leading-tight">10:00 – 22:00</div>
+        <div class="text-white/45 text-[11px]">T2 – CN hàng tuần</div>
+      </div>
+    </div>
+
+    <div class="hidden sm:block h-7 w-px bg-white/15"></div>
+
+    <!-- Address -->
+    <div class="flex items-center gap-2.5 flex-1 min-w-0">
+      <svg width="20" height="20" fill="none" stroke="#7ec87a" stroke-width="1.8" viewBox="0 0 24 24" class="shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div class="min-w-0">
+        <div class="text-white text-[13px] font-semibold leading-tight truncate">2 phố Lê gia, Ngải Kemoguchi</div>
+        <div class="text-white/45 text-[11px]">Kasukabe, Saitama 2-2-18</div>
+      </div>
+    </div>
+
+    <!-- Social buttons — right -->
+    <div class="flex items-center gap-2 ml-auto shrink-0">
+      <a href="#" class="flex items-center gap-1.5 bg-[#1877f2] text-white text-[12px] font-semibold px-3.5 py-2 rounded-lg hover:opacity-90 transition-opacity">
+        <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebook
+      </a>
+      <a href="#" class="flex items-center gap-1.5 bg-[#06c755] text-white text-[12px] font-semibold px-3.5 py-2 rounded-lg hover:opacity-90 transition-opacity">
+        <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.72c0 2.88 1.58 5.45 4.06 7.11l-.5 3.17 3.46-1.87c.92.26 1.9.4 2.98.4 5.52 0 10-3.92 10-8.81C22 5.92 17.52 2 12 2z"/></svg>
+        LINE
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MENU SECTION ==================== -->
+<section id="menu" class="bg-nana-warm py-10 lg:py-14">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <!-- Section header -->
+    <div class="flex items-start justify-between mb-6">
+      <div>
+        <div class="section-label text-[11px] font-semibold text-nana-green uppercase mb-1">Thực Đơn</div>
+        <h2 class="font-display text-3xl lg:text-4xl font-bold text-nana-dark flex items-center gap-2">
+          Món ngon tại Nana Cafe
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.5"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><path d="M8 8c1-1 8-1 8 0"/><circle cx="12" cy="10" r="2"/></svg>
+        </h2>
+      </div>
+      <a href="#" class="hidden sm:flex items-center gap-1 text-[13px] text-gray-500 hover:text-nana-dark font-medium whitespace-nowrap mt-2 transition-colors">
+        Xem toàn bộ thực đơn
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Category filter -->
+    <div class="flex items-center gap-2 flex-wrap mb-7">
+      <button class="cat-btn active text-[13px] font-semibold px-4 py-2 rounded-full border border-nana-dark" onclick="filterMenu('all', this)">Tất cả</button>
+      <button class="cat-btn bg-white text-[13px] font-medium px-4 py-2 rounded-full border border-gray-200 hover:border-nana-dark" onclick="filterMenu('bun', this)">Bún - Phở</button>
+      <button class="cat-btn bg-white text-[13px] font-medium px-4 py-2 rounded-full border border-gray-200 hover:border-nana-dark" onclick="filterMenu('com', this)">Cơm tấm</button>
+      <button class="cat-btn bg-white text-[13px] font-medium px-4 py-2 rounded-full border border-gray-200 hover:border-nana-dark" onclick="filterMenu('micay', this)">Mì cay</button>
+      <button class="cat-btn bg-white text-[13px] font-medium px-4 py-2 rounded-full border border-gray-200 hover:border-nana-dark" onclick="filterMenu('trasua', this)">Trà sữa</button>
+      <button class="cat-btn bg-white text-[13px] font-medium px-4 py-2 rounded-full border border-gray-200 hover:border-nana-dark" onclick="filterMenu('tranước', this)">Trà - Nước</button>
+    </div>
+
+    <!-- Menu cards -->
+    <div class="relative">
+      <div id="menu-cards" class="menu-scroll flex gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-4 lg:overflow-visible">
+
+        <!-- Card 1 -->
+        <div class="menu-card bg-white rounded-2xl overflow-hidden shrink-0 w-[220px] lg:w-auto shadow-sm" data-cat="bun">
+          <div class="relative overflow-hidden h-[160px]">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&auto=format&fit=crop&q=75" alt="Bún Bò Huế" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+            <span class="absolute top-3 left-3 bg-nana-dark text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              Bán chạy
+              <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-[15px] text-gray-900 mb-1">Bún Bò Huế</h3>
+            <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Hương vị đậm đặc trung xứ Huế</p>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[16px] text-gray-900">¥980</span>
+              <button class="btn-order bg-nana-dark text-white text-[12px] font-semibold px-3.5 py-1.5 rounded-lg">Đặt món</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="menu-card bg-white rounded-2xl overflow-hidden shrink-0 w-[220px] lg:w-auto shadow-sm" data-cat="micay">
+          <div class="relative overflow-hidden h-[160px]">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=75" alt="Mì Cay Đặc Biệt" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+            <span class="absolute top-3 left-3 bg-nana-green text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Mới</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-[15px] text-gray-900 mb-1">Mì Cay Đặc Biệt</h3>
+            <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Cay nồng, hập dẫn khó cưỡng</p>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[16px] text-gray-900">¥1,200</span>
+              <button class="btn-order bg-nana-dark text-white text-[12px] font-semibold px-3.5 py-1.5 rounded-lg">Đặt món</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="menu-card bg-white rounded-2xl overflow-hidden shrink-0 w-[220px] lg:w-auto shadow-sm" data-cat="com">
+          <div class="relative overflow-hidden h-[160px]">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&auto=format&fit=crop&q=75" alt="Cơm Tấm Sườn Bì" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-[15px] text-gray-900 mb-1">Cơm Tấm Sườn Bì</h3>
+            <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Thịt nướng thơm lừng, bì giòn sần sật</p>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[16px] text-gray-900">¥1,100</span>
+              <button class="btn-order bg-nana-dark text-white text-[12px] font-semibold px-3.5 py-1.5 rounded-lg">Đặt món</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="menu-card bg-white rounded-2xl overflow-hidden shrink-0 w-[220px] lg:w-auto shadow-sm" data-cat="com">
+          <div class="relative overflow-hidden h-[160px]">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&auto=format&fit=crop&q=75" alt="Bò Bít Tết Nướng" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-[15px] text-gray-900 mb-1">Bò Bít Tết Nướng</h3>
+            <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Thịt bò thượng hạng, mềm mai thơm ngon</p>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[16px] text-gray-900">¥880</span>
+              <button class="btn-order bg-nana-dark text-white text-[12px] font-semibold px-3.5 py-1.5 rounded-lg">Đặt món</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Arrow button (desktop) -->
+      <button class="hidden lg:flex absolute -right-4 top-[60px] w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center hover:bg-gray-50 transition-colors z-10" aria-label="Next">
+        <svg width="18" height="18" fill="none" stroke="#333" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURED PRODUCT ==================== -->
+<section class="bg-nana-warm py-6 lg:py-8">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <div class="feature-banner rounded-3xl overflow-hidden relative" style="min-height:340px;">
+      <div class="flex flex-col lg:flex-row items-center">
+        <!-- Left content -->
+        <div class="flex-1 p-8 lg:p-12 z-10 relative">
+          <div class="text-[11px] font-semibold text-nana-green uppercase tracking-widest mb-1">Món Nổi Bật</div>
+          <div class="font-display italic text-nana-green text-[18px] mb-1">thơm mát</div>
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-nana-dark leading-tight mb-2">
+            Trà Sữa<br/>Kem Trứng
+          </h2>
+          <div class="text-[13px] font-semibold text-gray-700 mb-2">Dịu Ngọt Đặc Biệt</div>
+          <p class="text-[13px] text-gray-600 leading-relaxed max-w-[340px] mb-4">
+            Kem trứng béo thơm hoà quyện cùng trà sữa thanh mát mang đến trải nghiệm khó quên tại Nana Cafe.
+          </p>
+          <!-- Price -->
+          <div class="flex items-baseline gap-2 mb-5">
+            <span class="font-display text-3xl font-bold text-nana-dark">¥680</span>
+            <span class="text-[14px] text-gray-400 line-through">¥850</span>
+          </div>
+          <!-- Mini stats -->
+          <div class="flex items-center gap-6 mb-6">
+            <div>
+              <div class="font-bold text-[16px] text-nana-dark">3</div>
+              <div class="text-[11px] text-gray-500">Lớp topping<br/>kem • sữa • trân châu</div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg width="20" height="20" fill="none" stroke="#2d5a27" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <div>
+                <div class="font-bold text-[16px] text-nana-dark">Có</div>
+                <div class="text-[11px] text-gray-500">Tuỳ chỉnh<br/>lượng đường đá</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg width="20" height="20" fill="none" stroke="#2d5a27" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              <div>
+                <div class="font-bold text-[16px] text-nana-dark">20%</div>
+                <div class="text-[11px] text-gray-500">Giảm giá<br/>tháng 5</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-order bg-nana-dark text-white text-[14px] font-semibold px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-nana-green transition-colors">
+            Đặt ngay
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- Right image -->
+        <div class="relative flex-1 flex items-center justify-center p-8 lg:p-10 min-h-[260px]">
+          <!-- Decorative leaves -->
+          <div class="absolute top-4 left-8 opacity-30">
+            <svg width="60" height="80" viewBox="0 0 60 80" fill="none"><path d="M30 75C30 75 5 50 5 30C5 15 15 5 30 5C45 5 55 15 55 30C55 50 30 75 30 75Z" fill="#2d5a27" opacity="0.5"/></svg>
+          </div>
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1558857563-b371033873b8?w=500&auto=format&fit=crop&q=80"
+            alt="Trà sữa kem trứng"
+            class="relative z-10 w-52 lg:w-72 object-contain drop-shadow-2xl"
+            style="filter: drop-shadow(0 16px 40px rgba(0,0,0,0.18));"
+          />
+          <!-- Best seller badge -->
+          <div class="bestseller absolute top-6 right-6 lg:top-10 lg:right-10 w-20 h-20 rounded-full flex flex-col items-center justify-center text-white z-20 shadow-xl">
+            <div class="text-[10px] font-bold tracking-wide">BEST</div>
+            <div class="text-[11px] font-bold tracking-wide">SELLER</div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="mt-0.5"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT / STORY ==================== -->
+<section id="about" class="bg-nana-warm py-10 lg:py-14">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-[2fr_2.2fr_1.1fr] gap-6 lg:gap-8 items-center">
+
+      <!-- COL 1: Photo gallery -->
+      <div class="grid grid-cols-2 gap-2.5">
+        <div class="col-span-2 rounded-2xl overflow-hidden h-[180px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&auto=format&fit=crop&q=75" alt="Nana Cafe food" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+        <div class="rounded-2xl overflow-hidden h-[130px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&auto=format&fit=crop&q=75" alt="Cafe interior" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+        <div class="rounded-2xl overflow-hidden h-[130px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&auto=format&fit=crop&q=75" alt="Vietnamese food" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+        </div>
+      </div>
+
+      <!-- COL 2: Story text -->
+      <div>
+        <div class="section-label text-[10px] font-semibold text-nana-green uppercase tracking-widest mb-2">Câu Chuyện Thương Hiệu</div>
+        <h2 class="font-display text-2xl lg:text-[28px] font-bold text-nana-dark mb-4 leading-snug flex items-start gap-1.5">
+          Một góc quê hương<br/>nơi đất Nhật
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.5" class="mt-1 shrink-0"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2"/></svg>
+        </h2>
+
+        <ul class="space-y-2.5 mb-4">
+          <li class="flex gap-2.5 text-[12.5px] text-gray-600 leading-relaxed">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="2" class="mt-0.5 shrink-0"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2.5" fill="#2d5a27"/></svg>
+            Tọa lạc tại Ngải Kemoguchi, Nana Cafe là nơi giữ nét mộc mạc của quê nhà trong từng món ăn.
+          </li>
+          <li class="flex gap-2.5 text-[12.5px] text-gray-600 leading-relaxed">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="2" class="mt-0.5 shrink-0"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2.5" fill="#2d5a27"/></svg>
+            Nguyên liệu tươi ngon được chọn lọc kỹ càng, chế biến mỗi ngày.
+          </li>
+          <li class="flex gap-2.5 text-[12.5px] text-gray-600 leading-relaxed">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="2" class="mt-0.5 shrink-0"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2.5" fill="#2d5a27"/></svg>
+            Không gian ấm cúng, thân thiện — nơi bạn luôn muốn quay lại.
+          </li>
+        </ul>
+
+        <!-- Quote -->
+        <blockquote class="bg-nana-green/10 border-l-4 border-nana-green rounded-r-xl px-4 py-3">
+          <p class="text-[12px] text-gray-700 italic leading-relaxed">
+            <span class="text-nana-green font-bold text-[16px] leading-none mr-1">"</span>Nơi bắt đầu hành trình ẩm thực, nơi mỗi món ăn đều chứa đựng sự tử tế.<span class="text-nana-green font-bold text-[16px] leading-none ml-0.5">"</span>
+          </p>
+        </blockquote>
+      </div>
+
+      <!-- COL 3: Stats vertical -->
+      <div class="flex flex-row lg:flex-col gap-4 lg:gap-5 justify-around lg:justify-start">
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-nana-green/15 flex items-center justify-center shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.8"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2"/></svg>
+          </div>
+          <div>
+            <div class="font-display text-2xl font-bold text-nana-dark leading-tight">2024</div>
+            <div class="text-[11px] text-gray-500">Thành lập</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block h-px bg-gray-200"></div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-nana-green/15 flex items-center justify-center shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="font-display text-2xl font-bold text-nana-dark leading-tight">8K+</div>
+            <div class="text-[11px] text-gray-500">Khách hàng thân thiết</div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block h-px bg-gray-200"></div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-nana-green/15 flex items-center justify-center shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.8"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <div>
+            <div class="font-display text-2xl font-bold text-nana-dark leading-tight">50+</div>
+            <div class="text-[11px] text-gray-500">Món ngon phục vụ mỗi ngày</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DELIVERY SECTION ==================== -->
+<section class="delivery-section py-8 lg:py-10 overflow-hidden">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <div class="flex flex-col lg:flex-row items-stretch gap-0 lg:gap-0 rounded-2xl overflow-hidden">
+
+      <!-- Left content -->
+      <div class="flex-1 py-8 pr-0 lg:pr-8">
+        <div class="section-label text-[10px] font-semibold text-white/55 uppercase tracking-widest mb-1.5">Giao Hàng Tận Nơi</div>
+        <h2 class="font-display text-2xl lg:text-3xl font-bold text-white mb-2 flex items-center gap-2 flex-wrap">
+          Nana Cafe ship đến tận cửa nhà
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9fcf90" stroke-width="1.5"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2"/></svg>
+        </h2>
+        <p class="text-white/65 text-[12.5px] leading-relaxed mb-6 max-w-[440px]">
+          Không cần ra ngoài – Nana mang hương vị Việt Nam đến tận bạn ở. Dễ đặt, tiện lợi và cực nhanh chóng!
+        </p>
+
+        <!-- Feature list — 3 columns inline -->
+        <div class="flex flex-col sm:flex-row gap-5 mb-6">
+          <div class="flex items-start gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center shrink-0 mt-0.5">
+              <svg width="15" height="15" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-[12.5px] font-semibold">Giao hàng nhanh chóng</div>
+              <div class="text-white/50 text-[11px] leading-snug">Có mặt trong 30-45 phút</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center shrink-0 mt-0.5">
+              <svg width="15" height="15" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-[12.5px] font-semibold">Đóng gói cẩn thận</div>
+              <div class="text-white/50 text-[11px] leading-snug">Giữ nguyên hương vị và độ tươi ngon</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center shrink-0 mt-0.5">
+              <svg width="15" height="15" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <div class="text-white text-[12.5px] font-semibold">Theo dõi đơn hàng dễ dàng</div>
+              <div class="text-white/50 text-[11px] leading-snug">Cập nhật trạng thái qua Zalo/Website</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="h-px bg-white/15 mb-4"></div>
+
+        <!-- Payment methods -->
+        <div>
+          <div class="text-white/50 text-[10px] uppercase tracking-widest mb-2.5 font-semibold">Thanh Toán</div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="bg-white/12 border border-white/20 text-white text-[12px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              Tiền mặt
+            </span>
+            <span class="bg-white/12 border border-white/20 text-white text-[12px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              Thẻ tín dụng
+            </span>
+            <span class="bg-white/12 border border-white/20 text-white text-[12px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <span class="w-4 h-4 rounded-full bg-pink-500 flex items-center justify-center text-[8px] font-black text-white">M</span>
+              MOMO
+            </span>
+            <span class="bg-white/12 border border-white/20 text-white text-[12px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <span class="w-4 h-4 rounded flex items-center justify-center bg-red-500 text-[7px] font-black text-white">V</span>
+              VNPay
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: delivery photo with floating badges -->
+      <div class="relative shrink-0 w-full lg:w-[420px] h-[220px] lg:h-auto overflow-hidden rounded-xl lg:rounded-none lg:rounded-r-2xl">
+        <img
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=800&auto=format&fit=crop&q=80"
+          alt="Delivery shipper"
+          class="w-full h-full object-cover object-center"
+        />
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-nana-dark/25"></div>
+
+        <!-- FREESHIP floating badge — left center -->
+        <div class="absolute left-5 top-1/2 -translate-y-1/2 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-4 py-3 shadow-xl">
+          <div class="flex items-center gap-2 mb-0.5">
+            <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span class="text-white font-bold text-[14px] tracking-wide">FREESHIP</span>
+          </div>
+          <div class="text-white/75 text-[11px] font-medium">Đơn từ ¥1,200</div>
+        </div>
+
+        <!-- Nana Cafe logo badge — right center -->
+        <div class="absolute right-5 top-1/2 -translate-y-1/2 bg-nana-green rounded-2xl px-3.5 py-3 shadow-xl flex flex-col items-center gap-1 min-w-[80px]">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+            <path d="M9 9h.01M15 9h.01"/>
+          </svg>
+          <div class="text-white font-bold text-[9px] tracking-wider text-center leading-tight">NANA CAFE<br/><span class="font-normal text-white/70">COFFEE & NATURE</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUPPORT SECTION ==================== -->
+<section class="bg-nana-warm py-10 lg:py-14">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <div class="mb-7">
+      <div class="section-label text-[11px] font-semibold text-nana-green uppercase mb-1">Hỗ Trợ Khách Hàng</div>
+      <h2 class="font-display text-3xl lg:text-4xl font-bold text-nana-dark flex items-center gap-2">
+        Chúng tôi luôn sẵn sàng
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.5"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2"/></svg>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <!-- Service 1 -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="support-icon w-11 h-11 rounded-full flex items-center justify-center mb-4">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <h3 class="font-semibold text-[14px] text-gray-900 mb-1.5">Hỗ trợ đặt món nhanh</h3>
+        <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Đặt món dễ dàng qua điện thoại, tiện lợi, tiết kiệm thời gian.</p>
+        <a href="#" class="text-[12px] text-nana-green font-semibold hover:underline">Xem hướng dẫn →</a>
+      </div>
+      <!-- Service 2 -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="support-icon w-11 h-11 rounded-full flex items-center justify-center mb-4">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        </div>
+        <h3 class="font-semibold text-[14px] text-gray-900 mb-1.5">Thanh toán linh hoạt</h3>
+        <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Chấp nhận nhiều hình thức thanh toán: an toàn, tiện tùy.</p>
+        <a href="#" class="text-[12px] text-nana-green font-semibold hover:underline">Chi tiết →</a>
+      </div>
+      <!-- Service 3 -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="support-icon w-11 h-11 rounded-full flex items-center justify-center mb-4">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3 class="font-semibold text-[14px] text-gray-900 mb-1.5">Giao hàng tận nơi</h3>
+        <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Ship nhanh trong khu vực Kemoguchi và lân cận.</p>
+        <a href="#" class="text-[12px] text-nana-green font-semibold hover:underline">Theo dõi đơn →</a>
+      </div>
+      <!-- Service 4 -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="support-icon w-11 h-11 rounded-full flex items-center justify-center mb-4">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h3 class="font-semibold text-[14px] text-gray-900 mb-1.5">Đổi trả dễ dàng</h3>
+        <p class="text-[12px] text-gray-500 leading-relaxed mb-3">Hỗ trợ đổi món nếu còn vấn đề với đơn hàng.</p>
+        <a href="#" class="text-[12px] text-nana-green font-semibold hover:underline">Liên hệ ngay →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NEWS SECTION ==================== -->
+<section id="news" class="bg-nana-warm py-10 lg:py-14">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <div class="flex items-end justify-between mb-7">
+      <div>
+        <div class="section-label text-[11px] font-semibold text-nana-green uppercase mb-1">Tin Tức & Ưu Đãi</div>
+        <h2 class="font-display text-3xl lg:text-4xl font-bold text-nana-dark flex items-center gap-2">
+          Chuyện mới từ Nana Cafe
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2d5a27" stroke-width="1.5"><path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2"/></svg>
+        </h2>
+      </div>
+      <a href="#" class="hidden sm:flex items-center gap-1 text-[13px] text-gray-500 hover:text-nana-dark font-medium transition-colors">
+        Tất cả tin tức
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <!-- News 1 -->
+      <div class="news-card bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+        <div class="overflow-hidden h-[140px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=75" alt="Ưu đãi" class="news-img w-full h-full object-cover" />
+        </div>
+        <div class="p-4">
+          <span class="inline-block bg-nana-orange/15 text-nana-orange text-[10px] font-bold px-2.5 py-1 rounded-full mb-2">ƯU ĐÃI</span>
+          <h3 class="font-semibold text-[13px] text-gray-900 mb-1 leading-snug">Ưu đãi tháng 5<br/>Giảm 20% tất cả đồ uống</h3>
+          <div class="text-[11px] text-gray-400 mt-2">01/05/2024</div>
+        </div>
+      </div>
+
+      <!-- News 2 -->
+      <div class="news-card bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+        <div class="overflow-hidden h-[140px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&auto=format&fit=crop&q=75" alt="Tin tức" class="news-img w-full h-full object-cover" />
+        </div>
+        <div class="p-4">
+          <span class="inline-block bg-nana-green/15 text-nana-green text-[10px] font-bold px-2.5 py-1 rounded-full mb-2">TIN TỨC</span>
+          <h3 class="font-semibold text-[13px] text-gray-900 mb-1 leading-snug">Không gian mới<br/>Rộng rãi, ấm cúng hơn</h3>
+          <div class="text-[11px] text-gray-400 mt-2">25/04/2024</div>
+        </div>
+      </div>
+
+      <!-- News 3 -->
+      <div class="news-card bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+        <div class="overflow-hidden h-[140px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&auto=format&fit=crop&q=75" alt="Món mới" class="news-img w-full h-full object-cover" />
+        </div>
+        <div class="p-4">
+          <span class="inline-block bg-nana-dark/10 text-nana-dark text-[10px] font-bold px-2.5 py-1 rounded-full mb-2">MÓN MỚI</span>
+          <h3 class="font-semibold text-[13px] text-gray-900 mb-1 leading-snug">Món mới trong tuần<br/>Salad ức gà sốt mè rang</h3>
+          <div class="text-[11px] text-gray-400 mt-2">20/04/2024</div>
+        </div>
+      </div>
+
+      <!-- News 4 -->
+      <div class="news-card bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+        <div class="overflow-hidden h-[140px]">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop&q=75" alt="Bí quyết" class="news-img w-full h-full object-cover" />
+        </div>
+        <div class="p-4">
+          <span class="inline-block bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2.5 py-1 rounded-full mb-2">BÍ QUYẾT</span>
+          <h3 class="font-semibold text-[13px] text-gray-900 mb-1 leading-snug">Bí quyết cà phê ngon<br/>Từ hạt cà phê đến cách pha</h3>
+          <div class="text-[11px] text-gray-400 mt-2">15/04/2024</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer id="footer" class="bg-nana-dark text-white py-10 lg:py-14">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-9 h-9 rounded-full border-2 border-white/40 flex items-center justify-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+          </div>
+          <div>
+            <div class="text-white font-bold text-sm tracking-wider">NANA CAFE</div>
+            <div class="text-white/40 text-[9px] tracking-[0.2em]">COFFEE & NATURE</div>
+          </div>
+        </div>
+        <p class="text-white/55 text-[12px] leading-relaxed mb-4">
+          Mang hương vị Việt Nam đến trái tim người Nhật. Ẩm thực chân thật, không gian ấm áp.
+        </p>
+        <div class="flex items-center gap-2.5">
+          <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" aria-label="Facebook">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" aria-label="Instagram">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-[#06c755]/80 hover:bg-[#06c755] flex items-center justify-center transition-colors text-[10px] font-bold" aria-label="LINE">LINE</a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 class="text-white font-semibold text-[13px] mb-4 uppercase tracking-wider">Liên kết nhanh</h4>
+        <ul class="space-y-2.5">
+          <li><a href="#" class="text-white/55 text-[13px] hover:text-white transition-colors">Trang chủ</a></li>
+          <li><a href="#menu" class="text-white/55 text-[13px] hover:text-white transition-colors">Thực đơn</a></li>
+          <li><a href="#about" class="text-white/55 text-[13px] hover:text-white transition-colors">Câu chuyện</a></li>
+          <li><a href="#news" class="text-white/55 text-[13px] hover:text-white transition-colors">Tin tức & Ưu đãi</a></li>
+          <li><a href="#" class="text-white/55 text-[13px] hover:text-white transition-colors">Đặt bàn</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white font-semibold text-[13px] mb-4 uppercase tracking-wider">Liên hệ</h4>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-white/55 text-[12px]">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" class="mt-0.5 shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            2 phố Lê gia, Ngải Kemoguchi, Kasukabe, Saitama 2-2-18
+          </li>
+          <li class="flex items-center gap-2.5 text-white/55 text-[12px]">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.18h3a2 2 0 012 1.72c.33.82.7 1.63 1.14 2.4a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.77.44 1.58.81 2.4 1.14A2 2 0 0122 16.92z"/></svg>
+            080-6986-7879
+          </li>
+          <li class="flex items-center gap-2.5 text-white/55 text-[12px]">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            10:00 – 22:00 (T2 – CN)
+          </li>
+        </ul>
+      </div>
+
+      <!-- Hours / Map -->
+      <div>
+        <h4 class="text-white font-semibold text-[13px] mb-4 uppercase tracking-wider">Giờ mở cửa</h4>
+        <div class="space-y-2">
+          <div class="flex justify-between text-[12px]">
+            <span class="text-white/55">Thứ Hai – Thứ Sáu</span>
+            <span class="text-white/85 font-medium">10:00 – 22:00</span>
+          </div>
+          <div class="flex justify-between text-[12px]">
+            <span class="text-white/55">Thứ Bảy – Chủ Nhật</span>
+            <span class="text-white/85 font-medium">9:00 – 22:30</span>
+          </div>
+        </div>
+        <div class="mt-5 bg-white/8 border border-white/15 rounded-xl p-3">
+          <div class="text-white/40 text-[10px] uppercase tracking-wider mb-1.5">Đặt bàn trước</div>
+          <button class="w-full bg-nana-green text-white text-[13px] font-semibold py-2 rounded-lg hover:bg-nana-mid transition-colors">
+            Đặt bàn ngay
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="text-white/40 text-[12px]">© 2024 Nana Cafe. All rights reserved.</div>
+      <div class="flex items-center gap-4 text-white/40 text-[12px]">
+        <a href="#" class="hover:text-white/70 transition-colors">Chính sách bảo mật</a>
+        <a href="#" class="hover:text-white/70 transition-colors">Điều khoản</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="fixed bottom-6 right-6 w-10 h-10 bg-nana-dark text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-opacity z-50" aria-label="Back to top">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script>
+  // ── Sticky header shadow
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+    const btn = document.getElementById('back-to-top');
+    btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+    btn.style.pointerEvents = window.scrollY > 300 ? 'auto' : 'none';
+  }, { passive: true });
+
+  // ── Back to top
+  document.getElementById('back-to-top').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ── Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  // ── Category filter
+  function filterMenu(cat, btn) {
+    // Update button styles
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      b.classList.remove('active');
+      b.classList.add('bg-white');
+    });
+    btn.classList.add('active');
+    btn.classList.remove('bg-white');
+
+    // Filter cards
+    document.querySelectorAll('#menu-cards .menu-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
