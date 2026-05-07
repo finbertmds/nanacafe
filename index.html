@@ -123,7 +123,7 @@
           var nextUrl =
             window.location.pathname + "?page=" + encodeURIComponent(value);
           document.querySelector(".hint").innerHTML =
-            "Có thể dùng URL: <a href='" + nextUrl + "'>" + LINK + "</a>";
+            "Có thể dùng URL: <a href='" + nextUrl + "'>" + "LINK" + "</a>";
           if (replaceHistory) {
             history.replaceState({}, "", nextUrl);
           } else {
