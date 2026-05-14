@@ -1,666 +1,1038 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nana Cafe – Câu chuyện thương hiệu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Petit+Formal+Script&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream:       #f0ebe0;
-      --cream-mid:   #e8e0ce;
-      --cream-dark:  #ddd4be;
-      --dark:        #252318;
-      --dark-mid:    #3a3828;
-      --green:       #3d5c30;
-      --green-light: #5a7a44;
-      --green-pale:  #d4dfc8;
-      --text:        #3a3828;
-      --text-muted:  #7a7560;
-      --serif: 'Cormorant Garamond', Georgia, serif;
-      --hand:  'Petit Formal Script', cursive;
-      --body:  'Be Vietnam Pro', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--body);
-      background: var(--cream);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Noise texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-    }
-
-    /* ─── HEADER ─────────────────────────────────────── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--dark);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-    }
-
-    .logo {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none;
-    }
-    .logo-seal {
-      width: 38px; height: 38px;
-      border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--serif);
-      color: rgba(255,255,255,0.8);
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 1px;
-    }
-    .logo-text { color: white; }
-    .logo-text strong { display: block; font-family: var(--body); font-weight: 700; font-size: 13px; letter-spacing: 2px; }
-    .logo-text span { font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.45); text-transform: uppercase; }
-
-    nav { display: flex; align-items: center; gap: 36px; }
-    nav a {
-      color: rgba(255,255,255,0.75); text-decoration: none;
-      font-size: 13.5px; font-weight: 400;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: white; }
-    .menu-icon { color: white; cursor: pointer; }
-
-    /* ─── SECTION 1 · HERO SPLIT ─────────────────────── */
-    .hero {
-      position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 580px;
-      overflow: hidden;
-    }
-
-    .hero-left {
-      background: var(--cream);
-      padding: 72px 56px 72px 64px;
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative;
-    }
-
-    .hero-location {
-      font-family: var(--body);
-      font-size: 10.5px; font-weight: 500;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(42px, 5vw, 64px);
-      font-weight: 700;
-      line-height: 1.05;
-      color: var(--dark);
-      margin-bottom: 0;
-    }
-    .hero-title em { font-style: italic; font-weight: 600; }
-
-    .hero-seal {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px; height: 44px;
-      border: 1.5px solid #b85c38;
-      border-radius: 4px;
-      margin-left: 10px;
-      vertical-align: middle;
-      position: relative;
-      top: -6px;
-    }
-    .hero-seal svg { opacity: 0.8; }
-
-    .hero-divider {
-      width: 40px; height: 2px;
-      background: var(--green);
-      margin: 24px 0 28px;
-    }
-
-    .hero-body {
-      font-size: 14px; line-height: 1.9;
-      color: var(--text);
-      font-weight: 300;
-      margin-bottom: 28px;
-      max-width: 380px;
-    }
-    .hero-body p { margin-bottom: 2px; }
-
-    .hero-quote {
-      font-family: var(--hand);
-      font-size: 18px;
-      color: var(--green);
-      line-height: 1.7;
-      margin-top: 4px;
-    }
-
-    /* Right: arched photo */
-    .hero-right {
-      position: relative;
-      background: var(--dark);
-      overflow: hidden;
-    }
-    .hero-right img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block;
-    }
-    /* The arch cut on the left side of the image */
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -2px;
-      width: 120px;
-      height: 100%;
-      background: var(--cream);
-      border-radius: 0 9999px 9999px 0;
-      z-index: 2;
-    }
-
-
-    /* ─── SECTION 2 · 3 VALUES ───────────────────────── */
-    .values {
-      position: relative; z-index: 1;
-      background: var(--cream);
-      padding: 72px 64px;
-      border-top: 1px solid rgba(60,60,40,0.1);
-    }
-
-    .values-label {
-      text-align: center;
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 52px;
-    }
-
-    .values-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 0;
-    }
-
-    .value-item {
-      padding: 0 48px;
-      border-right: 1px solid rgba(60,60,40,0.12);
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center;
-    }
-    .value-item:first-child { padding-left: 0; }
-    .value-item:last-child { padding-right: 0; border-right: none; }
-
-    .value-num {
-      width: 48px; height: 48px;
-      background: var(--dark);
-      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--serif);
-      font-size: 14px; font-weight: 600;
-      color: var(--green-pale);
-      margin-bottom: 22px;
-      letter-spacing: 0.05em;
-    }
-
-    .value-icon {
-      margin-bottom: 18px;
-      color: var(--dark);
-    }
-
-    .value-title {
-      font-family: var(--serif);
-      font-size: 22px; font-weight: 700;
-      line-height: 1.25;
-      color: var(--dark);
-      margin-bottom: 14px;
-    }
-    .value-title em { font-style: italic; }
-
-    .value-desc {
-      font-size: 13px; line-height: 1.75;
-      color: var(--text-muted);
-      font-weight: 300;
-      max-width: 240px;
-    }
-
-
-    /* ─── SECTION 3 · LETTER + IMAGE ────────────────── */
-    .letter-section {
-      position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 560px;
-      overflow: hidden;
-    }
-
-    .letter-left {
-      background: var(--cream-mid);
-      padding: 72px 56px 72px 64px;
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative;
-    }
-
-    /* Decorative botanical SVG */
-    .letter-botanical {
-      position: absolute;
-      left: -10px; bottom: 40px;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    .letter-tag {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .letter-title {
-      font-family: var(--serif);
-      font-size: clamp(30px, 3.5vw, 46px);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--dark);
-      margin-bottom: 28px;
-    }
-    .letter-title em { font-style: italic; }
-
-    .letter-body {
-      font-size: 13.5px; line-height: 1.85;
-      color: var(--text);
-      font-weight: 300;
-      margin-bottom: 28px;
-      max-width: 380px;
-    }
-    .letter-body p + p { margin-top: 12px; }
-
-    .letter-sign {
-      font-family: var(--hand);
-      font-size: 19px;
-      color: var(--green);
-      line-height: 1.7;
-      display: flex; align-items: flex-end; gap: 8px;
-    }
-    .letter-sign svg { margin-bottom: 3px; opacity: 0.7; }
-
-    /* Right: storefront photo */
-    .letter-right {
-      position: relative; overflow: hidden;
-    }
-    .letter-right img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-    }
-    .letter-right::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(232,224,206,0.25) 0%, transparent 40%);
-    }
-
-
-    /* ─── SECTION 4 · STATS BAR ──────────────────────── */
-    .stats-bar {
-      position: relative; z-index: 1;
-      background: var(--cream);
-      border-top: 1px solid rgba(60,60,40,0.1);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .stat-item {
-      padding: 44px 40px;
-      border-right: 1px solid rgba(60,60,40,0.1);
-      display: flex; align-items: flex-start; gap: 16px;
-    }
-    .stat-item:last-child { border-right: none; }
-
-    .stat-icon {
-      width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      color: var(--dark);
-    }
-
-    .stat-content {}
-
-    .stat-number {
-      font-family: var(--serif);
-      font-size: 38px; font-weight: 700;
-      line-height: 1;
-      color: var(--dark);
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 13px; font-weight: 500;
-      color: var(--text);
-      line-height: 1.3;
-      margin-bottom: 6px;
-    }
-    .stat-sub {
-      font-size: 11.5px; color: var(--text-muted);
-      font-weight: 300; line-height: 1.5;
-      max-width: 160px;
-    }
-
-    /* ─── RESPONSIVE ─────────────────────────────────── */
-    @media (max-width: 900px) {
-      header { padding: 0 20px; }
-      nav { display: none; }
-
-      .hero, .letter-section {
-        grid-template-columns: 1fr;
-        min-height: auto;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nana Cafe – Câu chuyện thương hiệu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Petit+Formal+Script&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      .hero-left, .letter-left { padding: 48px 24px; }
-      .hero-right { height: 320px; }
-      .hero-right::before { display: none; }
-      .letter-right { height: 300px; }
-      .letter-right::after { display: none; }
 
-      .values { padding: 48px 24px; }
-      .values-grid { grid-template-columns: 1fr; gap: 40px; }
-      .value-item { border-right: none; border-bottom: 1px solid rgba(60,60,40,0.12); padding: 0 0 40px; }
-      .value-item:last-child { border-bottom: none; padding-bottom: 0; }
+      :root {
+        --cream: #f0ebe0;
+        --cream-mid: #e8e0ce;
+        --cream-dark: #ddd4be;
+        --dark: #252318;
+        --dark-mid: #3a3828;
+        --green: #3d5c30;
+        --green-light: #5a7a44;
+        --green-pale: #d4dfc8;
+        --text: #3a3828;
+        --text-muted: #7a7560;
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --hand: "Petit Formal Script", cursive;
+        --body: "Be Vietnam Pro", sans-serif;
+      }
 
-      .stats-bar { grid-template-columns: 1fr 1fr; }
-      .stat-item { padding: 28px 20px; }
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(3) { border-right: 1px solid rgba(60,60,40,0.1); border-top: 1px solid rgba(60,60,40,0.1); }
-      .stat-item:nth-child(4) { border-right: none; border-top: 1px solid rgba(60,60,40,0.1); }
-    }
-  </style>
-</head>
-<body>
+      html {
+        scroll-behavior: smooth;
+      }
 
-<!-- ═══ HEADER ═══════════════════════════════════════════════ -->
-<header>
-  <a href="#" class="logo">
-    <div class="logo-seal">
-      <!-- Japanese-style kanji seal -->
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.4">
-        <rect x="3" y="3" width="18" height="18" rx="2"/>
-        <line x1="12" y1="3" x2="12" y2="21"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-      </svg>
-    </div>
-    <div class="logo-text">
-      <strong>NANA CAFE</strong>
-      <span>Coffee &amp; Nature</span>
-    </div>
-  </a>
+      body {
+        font-family: var(--body);
+        background: var(--cream);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
 
-  <nav>
-    <a href="#">Trang chủ</a>
-    <a href="#" style="color:white; font-weight:500;">Về chúng tôi</a>
-    <a href="#">Thực đơn</a>
-    <a href="#">Không gian</a>
-    <a href="#">Liên hệ</a>
-  </nav>
+      /* Noise texture overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+      }
 
-  <div class="menu-icon">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
-      <line x1="3" y1="7" x2="21" y2="7"/>
-      <line x1="3" y1="13" x2="21" y2="13"/>
-      <line x1="3" y1="19" x2="21" y2="19"/>
-    </svg>
-  </div>
-</header>
+      /* ─── HEADER ─────────────────────────────────────── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--dark);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 48px;
+        height: 64px;
+      }
 
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .logo-seal {
+        width: 38px;
+        height: 38px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+      .logo-text {
+        color: white;
+      }
+      .logo-text strong {
+        display: block;
+        font-family: var(--body);
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 2px;
+      }
+      .logo-text span {
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: uppercase;
+      }
 
-<!-- ═══ SECTION 1 · HERO SPLIT ════════════════════════════════ -->
-<section class="hero">
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      nav a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 400;
+        transition: color 0.2s;
+      }
+      nav a:hover {
+        color: white;
+      }
+      .menu-icon {
+        color: white;
+        cursor: pointer;
+      }
 
-  <!-- Left: story text -->
-  <div class="hero-left">
-    <div class="hero-location">Kemoguchi, Tokyo</div>
+      /* ─── SECTION 1 · HERO SPLIT ─────────────────────── */
+      .hero {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 580px;
+        overflow: hidden;
+      }
 
-    <h1 class="hero-title">
-      Một góc quê hương<br/>
-      nơi đất Nhật.
-      <span class="hero-seal" aria-hidden="true">
-        <!-- Nana kanji-style seal -->
-        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-          <rect x="1" y="1" width="26" height="26" rx="3" stroke="#b85c38" stroke-width="1.5"/>
-          <text x="14" y="11" text-anchor="middle" font-size="6" fill="#b85c38" font-family="serif" font-weight="600">な</text>
-          <text x="14" y="19" text-anchor="middle" font-size="6" fill="#b85c38" font-family="serif" font-weight="600">な</text>
-          <text x="8" y="15" text-anchor="middle" font-size="6" fill="#b85c38" font-family="serif" font-weight="600">カ</text>
-          <text x="20" y="15" text-anchor="middle" font-size="6" fill="#b85c38" font-family="serif" font-weight="600">フ</text>
-        </svg>
-      </span>
-    </h1>
+      .hero-left {
+        background: var(--cream-mid);
+        padding: 72px 56px 72px 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
 
-    <div class="hero-divider"></div>
+      .hero-location {
+        font-family: var(--body);
+        font-size: 10.5px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
 
-    <div class="hero-body">
-      <p>Ngoài trời vừa đổ mưa nhẹ.</p>
-      <p>Một nồi súp miso còn nghi ngút khói.</p>
-      <p>Và ai đó vừa bước vào quán để tìm</p>
-      <p>cảm giác giống quê nhà.</p>
-    </div>
+      .hero-title {
+        font-family: var(--serif);
+        font-size: clamp(42px, 5vw, 64px);
+        font-weight: 700;
+        line-height: 1.05;
+        color: var(--dark);
+        margin-bottom: 0;
+      }
+      .hero-title em {
+        font-style: italic;
+        font-weight: 600;
+      }
 
-    <p class="hero-quote">
-      Nana Cafe không có trở thành nơi<br/>
-      nổi tiếng nhất. Chúng tôi chỉ muốn là<br/>
-      <em>nơi bạn muốn quay lại.</em>
-    </p>
-  </div>
+      .hero-seal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: 1.5px solid #b85c38;
+        border-radius: 4px;
+        margin-left: 10px;
+        vertical-align: middle;
+        position: relative;
+        top: -6px;
+      }
+      .hero-seal svg {
+        opacity: 0.8;
+      }
 
-  <!-- Right: cafe window photo -->
-  <div class="hero-right">
-    <img
-      src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=900&auto=format&fit=crop&q=85&sat=-15"
-      alt="Nana Cafe – không gian cửa sổ ấm"
-      loading="eager"
-    />
-  </div>
+      .hero-divider {
+        width: 40px;
+        height: 2px;
+        background: var(--green);
+        margin: 24px 0 28px;
+      }
 
-</section>
+      .hero-body {
+        font-size: 14px;
+        line-height: 1.9;
+        color: var(--text);
+        font-weight: 300;
+        margin-bottom: 28px;
+        max-width: 380px;
+      }
+      .hero-body p {
+        margin-bottom: 2px;
+      }
 
+      .hero-quote {
+        font-family: var(--hand);
+        font-size: 18px;
+        color: var(--green);
+        line-height: 1.7;
+        margin-top: 4px;
+      }
 
-<!-- ═══ SECTION 2 · 3 ĐIỀU TIN ════════════════════════════════ -->
-<section class="values">
-  <p class="values-label">3 Điều tự mình tin</p>
+      /* Right: arched photo */
+      .hero-right {
+        position: relative;
+        background: var(--dark);
+        overflow: hidden;
+      }
+      .hero-right img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      /* The arch cut on the left side of the image */
+      .hero-right::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -2px;
+        width: 140px;
+        height: 100%;
+        z-index: 2;
 
-  <div class="values-grid">
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
 
-    <!-- Value 01 -->
-    <div class="value-item">
-      <div class="value-num">01</div>
-      <div class="value-icon">
-        <!-- Bowl/steam icon -->
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-          <path d="M16 20c0 0 -2 -4 0 -7"/>
-          <path d="M24 20c0 0 -2 -4 0 -7"/>
-          <path d="M32 20c0 0 -2 -4 0 -7"/>
-          <path d="M8 26h32"/>
-          <path d="M10 26c0 8 6.27 14 14 14s14-6 14-14"/>
-          <line x1="18" y1="40" x2="30" y2="40"/>
-          <line x1="24" y1="40" x2="24" y2="44"/>
-          <line x1="18" y1="44" x2="30" y2="44"/>
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 500' preserveAspectRatio='none'%3E%3Cpath fill='%23e8e0ce' d='M140 0 C90 20 10 120 70 240 C130 360 160 460 40 500 L0 500 L0 0 Z'/%3E%3C/svg%3E");
+      }
+
+      /* ─── SECTION 2 · 3 VALUES ───────────────────────── */
+      .values {
+        position: relative;
+        z-index: 1;
+        background: var(--cream);
+        padding: 72px 64px;
+        /* border-top: 1px solid rgba(60,60,40,0.1); */
+      }
+
+      .values-label {
+        text-align: center;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 52px;
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+      }
+
+      .value-item {
+        padding: 0 48px;
+        border-right: 1px solid rgba(60, 60, 40, 0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .value-item:first-child {
+        padding-left: 0;
+      }
+      .value-item:last-child {
+        padding-right: 0;
+        border-right: none;
+      }
+
+      .value-num {
+        width: 48px;
+        height: 48px;
+        background: var(--dark);
+        clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--green-pale);
+        margin-bottom: 22px;
+        letter-spacing: 0.05em;
+      }
+
+      .value-icon {
+        margin-bottom: 18px;
+        color: var(--dark);
+      }
+
+      .value-title {
+        font-family: var(--serif);
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--dark);
+        margin-bottom: 14px;
+      }
+      .value-title em {
+        font-style: italic;
+      }
+
+      .value-desc {
+        font-size: 13px;
+        line-height: 1.75;
+        color: var(--text-muted);
+        font-weight: 300;
+        max-width: 240px;
+      }
+
+      /* ─── SECTION 3 · LETTER + IMAGE ────────────────── */
+      .letter-section {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 560px;
+        overflow: hidden;
+      }
+
+      .letter-left {
+        background: var(--cream-mid);
+        padding: 72px 56px 72px 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+
+      /* Decorative botanical SVG */
+      .letter-botanical {
+        position: absolute;
+        left: -10px;
+        bottom: 40px;
+        opacity: 0.18;
+        pointer-events: none;
+      }
+
+      .letter-tag {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+      }
+
+      .letter-title {
+        font-family: var(--serif);
+        font-size: clamp(30px, 3.5vw, 46px);
+        font-weight: 700;
+        line-height: 1.1;
+        color: var(--dark);
+        margin-bottom: 28px;
+      }
+      .letter-title em {
+        font-style: italic;
+      }
+
+      .letter-body {
+        font-size: 13.5px;
+        line-height: 1.85;
+        color: var(--text);
+        font-weight: 300;
+        margin-bottom: 28px;
+        max-width: 380px;
+      }
+      .letter-body p + p {
+        margin-top: 12px;
+      }
+
+      .letter-sign {
+        font-family: var(--hand);
+        font-size: 19px;
+        color: var(--green);
+        line-height: 1.7;
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+      }
+      .letter-sign svg {
+        margin-bottom: 3px;
+        opacity: 0.7;
+      }
+
+      /* Right: storefront photo */
+      .letter-right {
+        position: relative;
+        overflow: hidden;
+      }
+      .letter-right img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .letter-right::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          rgba(232, 224, 206, 0.25) 0%,
+          transparent 40%
+        );
+      }
+
+      /* ─── SECTION 4 · STATS BAR ──────────────────────── */
+      .stats-bar {
+        position: relative;
+        z-index: 1;
+        background: var(--cream);
+        border-top: 1px solid rgba(60, 60, 40, 0.1);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .stat-item {
+        padding: 44px 40px;
+        border-right: 1px solid rgba(60, 60, 40, 0.1);
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .stat-item:last-child {
+        border-right: none;
+      }
+
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+        color: var(--dark);
+      }
+
+      .stat-content {
+      }
+
+      .stat-number {
+        font-family: var(--serif);
+        font-size: 38px;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--dark);
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 1.3;
+        margin-bottom: 6px;
+      }
+      .stat-sub {
+        font-size: 11.5px;
+        color: var(--text-muted);
+        font-weight: 300;
+        line-height: 1.5;
+        max-width: 160px;
+      }
+
+      /* ─── RESPONSIVE ─────────────────────────────────── */
+      @media (max-width: 900px) {
+        header {
+          padding: 0 20px;
+        }
+        nav {
+          display: none;
+        }
+
+        .hero,
+        .letter-section {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .hero-left,
+        .letter-left {
+          padding: 48px 24px;
+        }
+        .hero-right {
+          height: 320px;
+        }
+        .hero-right::before {
+          display: none;
+        }
+        .letter-right {
+          height: 300px;
+        }
+        .letter-right::after {
+          display: none;
+        }
+
+        .values {
+          padding: 48px 24px;
+        }
+        .values-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .value-item {
+          border-right: none;
+          border-bottom: 1px solid rgba(60, 60, 40, 0.12);
+          padding: 0 0 40px;
+        }
+        .value-item:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .stats-bar {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stat-item {
+          padding: 28px 20px;
+        }
+        .stat-item:nth-child(2) {
+          border-right: none;
+        }
+        .stat-item:nth-child(3) {
+          border-right: 1px solid rgba(60, 60, 40, 0.1);
+          border-top: 1px solid rgba(60, 60, 40, 0.1);
+        }
+        .stat-item:nth-child(4) {
+          border-right: none;
+          border-top: 1px solid rgba(60, 60, 40, 0.1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══ HEADER ═══════════════════════════════════════════════ -->
+    <header>
+      <a href="#" class="logo">
+        <div class="logo-seal">
+          <!-- Japanese-style kanji seal -->
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="rgba(255,255,255,0.7)"
+            stroke-width="1.4"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <line x1="12" y1="3" x2="12" y2="21" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+          </svg>
+        </div>
+        <div class="logo-text">
+          <strong>NANA CAFE</strong>
+          <span>Coffee &amp; Nature</span>
+        </div>
+      </a>
+
+      <nav>
+        <a href="#">Trang chủ</a>
+        <a href="#" style="color: white; font-weight: 500">Về chúng tôi</a>
+        <a href="#">Thực đơn</a>
+        <a href="#">Không gian</a>
+        <a href="#">Liên hệ</a>
+      </nav>
+
+      <div class="menu-icon">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          stroke-width="1.8"
+        >
+          <line x1="3" y1="7" x2="21" y2="7" />
+          <line x1="3" y1="13" x2="21" y2="13" />
+          <line x1="3" y1="19" x2="21" y2="19" />
         </svg>
       </div>
-      <h3 class="value-title"><em>Món ăn nên được</em><br/>nấu trong ngày</h3>
-      <p class="value-desc">Nguyên liệu tươi được chọn mỗi sáng, chế biến vừa đủ để giữ trọn hương vị.</p>
-    </div>
+    </header>
 
-    <!-- Value 02 -->
-    <div class="value-item">
-      <div class="value-num">02</div>
-      <div class="value-icon">
-        <!-- House/home icon -->
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M8 22L24 8l16 14"/>
-          <path d="M12 18v18a2 2 0 002 2h8v-8h4v8h8a2 2 0 002-2V18"/>
-        </svg>
+    <!-- ═══ SECTION 1 · HERO SPLIT ════════════════════════════════ -->
+    <section class="hero">
+      <!-- Left: story text -->
+      <div class="hero-left">
+        <div class="hero-location">Kemoguchi, Tokyo</div>
+
+        <h1 class="hero-title">
+          Một góc quê hương<br />
+          nơi đất Nhật.
+          <span class="hero-seal" aria-hidden="true">
+            <!-- Nana kanji-style seal -->
+            <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+              <rect
+                x="1"
+                y="1"
+                width="26"
+                height="26"
+                rx="3"
+                stroke="#b85c38"
+                stroke-width="1.5"
+              />
+              <text
+                x="14"
+                y="11"
+                text-anchor="middle"
+                font-size="6"
+                fill="#b85c38"
+                font-family="serif"
+                font-weight="600"
+              >
+                な
+              </text>
+              <text
+                x="14"
+                y="19"
+                text-anchor="middle"
+                font-size="6"
+                fill="#b85c38"
+                font-family="serif"
+                font-weight="600"
+              >
+                な
+              </text>
+              <text
+                x="8"
+                y="15"
+                text-anchor="middle"
+                font-size="6"
+                fill="#b85c38"
+                font-family="serif"
+                font-weight="600"
+              >
+                カ
+              </text>
+              <text
+                x="20"
+                y="15"
+                text-anchor="middle"
+                font-size="6"
+                fill="#b85c38"
+                font-family="serif"
+                font-weight="600"
+              >
+                フ
+              </text>
+            </svg>
+          </span>
+        </h1>
+
+        <div class="hero-divider"></div>
+
+        <div class="hero-body">
+          <p>Ngoài trời vừa đổ mưa nhẹ.</p>
+          <p>Một nồi súp miso còn nghi ngút khói.</p>
+          <p>Và ai đó vừa bước vào quán để tìm</p>
+          <p>cảm giác giống quê nhà.</p>
+        </div>
+
+        <!-- <p class="hero-quote">
+          Nana Cafe không có trở thành nơi<br />
+          nổi tiếng nhất. Chúng tôi chỉ muốn là<br />
+          <em>nơi bạn muốn quay lại.</em>
+        </p> -->
+        <img class="value-badge-img" src="../images/materials/quote_01.png" width="120" height="120">
+
       </div>
-      <h3 class="value-title"><em>Một quán nhỏ vẫn có thể</em><br/>khiến người ta nhớ lâu</h3>
-      <p class="value-desc">Không gian ấm cúng, gần gũi như căn bếp của chính mình.</p>
-    </div>
 
-    <!-- Value 03 -->
-    <div class="value-item">
-      <div class="value-num">03</div>
-      <div class="value-icon">
-        <!-- Heart icon -->
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-          <path d="M24 40s-16-9.6-16-20a8 8 0 0116 0 8 8 0 0116 0c0 10.4-16 20-16 20z"/>
-        </svg>
+      <!-- Right: cafe window photo -->
+      <div class="hero-right">
+        <img
+          src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=900&auto=format&fit=crop&q=85&sat=-15"
+          alt="Nana Cafe – không gian cửa sổ ấm"
+          loading="eager"
+        />
       </div>
-      <h3 class="value-title"><em>Sự tử tế luôn có</em><br/>vị ngon riêng</h3>
-      <p class="value-desc">Từ cách chúng tôi nấu ăn, phục vụ đến cách lắng nghe bạn.</p>
+    </section>
+
+    <!-- ═══ SECTION 2 · 3 ĐIỀU TIN ════════════════════════════════ -->
+    <section class="values">
+      <p class="values-label">3 Điều tự mình tin</p>
+
+      <div class="values-grid">
+        <!-- Value 01 -->
+        <div class="value-item">
+          <!-- <div class="value-num">01</div> -->
+          <img class="value-badge-img" src="../images/materials/sprite_01.png" width="48" height="48">
+          <div class="value-icon">
+            <!-- Bowl/steam icon -->
+            <svg
+              width="38"
+              height="38"
+              viewBox="0 0 48 48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            >
+              <path d="M16 20c0 0 -2 -4 0 -7" />
+              <path d="M24 20c0 0 -2 -4 0 -7" />
+              <path d="M32 20c0 0 -2 -4 0 -7" />
+              <path d="M8 26h32" />
+              <path d="M10 26c0 8 6.27 14 14 14s14-6 14-14" />
+              <line x1="18" y1="40" x2="30" y2="40" />
+              <line x1="24" y1="40" x2="24" y2="44" />
+              <line x1="18" y1="44" x2="30" y2="44" />
+            </svg>
+          </div>
+          <h3 class="value-title">
+            <em>Món ăn nên được</em><br />nấu trong ngày
+          </h3>
+          <p class="value-desc">
+            Nguyên liệu tươi được chọn mỗi sáng, chế biến vừa đủ để giữ trọn
+            hương vị.
+          </p>
+        </div>
+
+        <!-- Value 02 -->
+        <div class="value-item">
+          <!-- <div class="value-num">02</div> -->
+          <img class="value-badge-img" src="../images/materials/sprite_02.png" width="48" height="48">
+          <div class="value-icon">
+            <!-- House/home icon -->
+            <svg
+              width="38"
+              height="38"
+              viewBox="0 0 48 48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M8 22L24 8l16 14" />
+              <path d="M12 18v18a2 2 0 002 2h8v-8h4v8h8a2 2 0 002-2V18" />
+            </svg>
+          </div>
+          <h3 class="value-title">
+            <em>Một quán nhỏ vẫn có thể</em><br />khiến người ta nhớ lâu
+          </h3>
+          <p class="value-desc">
+            Không gian ấm cúng, gần gũi như căn bếp của chính mình.
+          </p>
+        </div>
+
+        <!-- Value 03 -->
+        <div class="value-item">
+          <!-- <div class="value-num">03</div> -->
+          <img class="value-badge-img" src="../images/materials/sprite_03.png" width="48" height="48">
+          <div class="value-icon">
+            <!-- Heart icon -->
+            <svg
+              width="38"
+              height="38"
+              viewBox="0 0 48 48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            >
+              <path
+                d="M24 40s-16-9.6-16-20a8 8 0 0116 0 8 8 0 0116 0c0 10.4-16 20-16 20z"
+              />
+            </svg>
+          </div>
+          <h3 class="value-title">
+            <em>Sự tử tế luôn có</em><br />vị ngon riêng
+          </h3>
+          <p class="value-desc">
+            Từ cách chúng tôi nấu ăn, phục vụ đến cách lắng nghe bạn.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3 · LETTER + STOREFRONT ══════════════════════ -->
+    <section class="letter-section">
+      <!-- Left: letter content -->
+      <div class="letter-left">
+        <!-- Botanical decoration -->
+        <div class="letter-botanical" aria-hidden="true">
+          <svg width="180" height="320" viewBox="0 0 180 320" fill="none">
+            <path
+              d="M90 320 Q85 240 80 180 Q60 120 20 80"
+              stroke="#3d5c30"
+              stroke-width="1.5"
+              fill="none"
+            />
+            <path
+              d="M80 200 Q40 170 10 160"
+              stroke="#3d5c30"
+              stroke-width="1.2"
+              fill="none"
+            />
+            <path
+              d="M83 230 Q55 220 30 230"
+              stroke="#3d5c30"
+              stroke-width="1.2"
+              fill="none"
+            />
+            <ellipse
+              cx="40"
+              cy="155"
+              rx="28"
+              ry="16"
+              transform="rotate(-30 40 155)"
+              fill="#3d5c30"
+              opacity="0.6"
+            />
+            <ellipse
+              cx="55"
+              cy="130"
+              rx="22"
+              ry="13"
+              transform="rotate(-50 55 130)"
+              fill="#3d5c30"
+              opacity="0.5"
+            />
+            <ellipse
+              cx="28"
+              cy="225"
+              rx="20"
+              ry="11"
+              transform="rotate(20 28 225)"
+              fill="#3d5c30"
+              opacity="0.5"
+            />
+            <ellipse
+              cx="22"
+              cy="78"
+              rx="18"
+              ry="10"
+              transform="rotate(-65 22 78)"
+              fill="#3d5c30"
+              opacity="0.45"
+            />
+            <path
+              d="M82 180 Q110 155 130 110"
+              stroke="#3d5c30"
+              stroke-width="1.2"
+              fill="none"
+            />
+            <ellipse
+              cx="130"
+              cy="108"
+              rx="24"
+              ry="13"
+              transform="rotate(40 130 108)"
+              fill="#3d5c30"
+              opacity="0.5"
+            />
+            <ellipse
+              cx="115"
+              cy="145"
+              rx="20"
+              ry="11"
+              transform="rotate(25 115 145)"
+              fill="#3d5c30"
+              opacity="0.45"
+            />
+          </svg>
+        </div>
+
+        <p class="letter-tag">Gửi những người đang sống xa nhà.</p>
+
+        <h2 class="letter-title">
+          Đôi khi thứ chúng ta nhớ<br />
+          <em>không phải một món ăn.</em>
+        </h2>
+
+        <div class="letter-body">
+          <p>Mà là cảm giác khi ai đó chuẩn bị nó cho mình.</p>
+          <p>
+            Nana Cafe được tạo ra để mang lại cảm giác đó – mộc mạc, ấm áp và
+            chân thành.
+          </p>
+        </div>
+
+        <div class="letter-sign">
+          Cảm ơn bạn đã ghé qua.<br />
+          Hy vọng hôm nay của bạn sẽ<br />
+          <em>trở nên dịu dàng hơn.</em>
+          &nbsp;
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="var(--green)"
+            stroke="none"
+          >
+            <path
+              d="M12 21s-8-4.8-8-10a6 6 0 0112 0 6 6 0 0112 0c0 5.2-8 10-8 10z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: storefront photo -->
+      <div class="letter-right">
+        <img
+          src="https://images.unsplash.com/photo-1601574968106-b312ac309953?w=900&auto=format&fit=crop&q=85"
+          alt="Cửa quán Nana Cafe – rèm noren"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4 · STATS BAR ══════════════════════════════════ -->
+    <div class="stats-bar">
+      <!-- Stat 1: Location -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          >
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div
+            class="stat-label"
+            style="
+              font-size: 11px;
+              color: var(--text-muted);
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              margin-bottom: 6px;
+            "
+          >
+            Tọa lạc tại
+          </div>
+          <div class="stat-number" style="font-size: 26px">KEMOGUCHI</div>
+          <div class="stat-sub">Tokyo, Nhật Bản</div>
+        </div>
+      </div>
+
+      <!-- Stat 2: Customers -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          >
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">8K+</div>
+          <div class="stat-label">Khách hàng<br />thân thiết</div>
+          <div class="stat-sub">Cảm ơn sự tin yêu của mọi người.</div>
+        </div>
+      </div>
+
+      <!-- Stat 3: Dishes -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          >
+            <path d="M18 8h1a4 4 0 010 8h-1" />
+            <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
+            <line x1="6" y1="1" x2="6" y2="4" />
+            <line x1="10" y1="1" x2="10" y2="4" />
+            <line x1="14" y1="1" x2="14" y2="4" />
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Món ngon<br />phục vụ mỗi ngày</div>
+          <div class="stat-sub">Thực đơn đa dạng, đổi mới thường xuyên.</div>
+        </div>
+      </div>
+
+      <!-- Stat 4: Ingredients -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          >
+            <path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z" />
+            <circle cx="12" cy="10" r="2.5" />
+            <path d="M12 12v6" />
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Nguyên liệu tươi<br />được chọn mỗi sáng</div>
+          <div class="stat-sub">
+            Ưu tiên nguyên liệu sạch, từ các nhà cung cấp uy tín.
+          </div>
+        </div>
+      </div>
     </div>
-
-  </div>
-</section>
-
-
-<!-- ═══ SECTION 3 · LETTER + STOREFRONT ══════════════════════ -->
-<section class="letter-section">
-
-  <!-- Left: letter content -->
-  <div class="letter-left">
-
-    <!-- Botanical decoration -->
-    <div class="letter-botanical" aria-hidden="true">
-      <svg width="180" height="320" viewBox="0 0 180 320" fill="none">
-        <path d="M90 320 Q85 240 80 180 Q60 120 20 80" stroke="#3d5c30" stroke-width="1.5" fill="none"/>
-        <path d="M80 200 Q40 170 10 160" stroke="#3d5c30" stroke-width="1.2" fill="none"/>
-        <path d="M83 230 Q55 220 30 230" stroke="#3d5c30" stroke-width="1.2" fill="none"/>
-        <ellipse cx="40" cy="155" rx="28" ry="16" transform="rotate(-30 40 155)" fill="#3d5c30" opacity="0.6"/>
-        <ellipse cx="55" cy="130" rx="22" ry="13" transform="rotate(-50 55 130)" fill="#3d5c30" opacity="0.5"/>
-        <ellipse cx="28" cy="225" rx="20" ry="11" transform="rotate(20 28 225)" fill="#3d5c30" opacity="0.5"/>
-        <ellipse cx="22" cy="78" rx="18" ry="10" transform="rotate(-65 22 78)" fill="#3d5c30" opacity="0.45"/>
-        <path d="M82 180 Q110 155 130 110" stroke="#3d5c30" stroke-width="1.2" fill="none"/>
-        <ellipse cx="130" cy="108" rx="24" ry="13" transform="rotate(40 130 108)" fill="#3d5c30" opacity="0.5"/>
-        <ellipse cx="115" cy="145" rx="20" ry="11" transform="rotate(25 115 145)" fill="#3d5c30" opacity="0.45"/>
-      </svg>
-    </div>
-
-    <p class="letter-tag">Gửi những người đang sống xa nhà.</p>
-
-    <h2 class="letter-title">
-      Đôi khi thứ chúng ta nhớ<br/>
-      <em>không phải một món ăn.</em>
-    </h2>
-
-    <div class="letter-body">
-      <p>Mà là cảm giác khi ai đó chuẩn bị nó cho mình.</p>
-      <p>Nana Cafe được tạo ra để mang lại cảm giác đó – mộc mạc, ấm áp và chân thành.</p>
-    </div>
-
-    <div class="letter-sign">
-      Cảm ơn bạn đã ghé qua.<br/>
-      Hy vọng hôm nay của bạn sẽ<br/>
-      <em>trở nên dịu dàng hơn.</em>
-      &nbsp;
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--green)" stroke="none">
-        <path d="M12 21s-8-4.8-8-10a6 6 0 0112 0 6 6 0 0112 0c0 5.2-8 10-8 10z"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- Right: storefront photo -->
-  <div class="letter-right">
-    <img
-      src="https://images.unsplash.com/photo-1601574968106-b312ac309953?w=900&auto=format&fit=crop&q=85"
-      alt="Cửa quán Nana Cafe – rèm noren"
-      loading="lazy"
-    />
-  </div>
-
-</section>
-
-
-<!-- ═══ SECTION 4 · STATS BAR ══════════════════════════════════ -->
-<div class="stats-bar">
-
-  <!-- Stat 1: Location -->
-  <div class="stat-item">
-    <div class="stat-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
-        <circle cx="12" cy="10" r="3"/>
-      </svg>
-    </div>
-    <div class="stat-content">
-      <div class="stat-label" style="font-size:11px; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px;">Tọa lạc tại</div>
-      <div class="stat-number" style="font-size:26px;">KEMOGUCHI</div>
-      <div class="stat-sub">Tokyo, Nhật Bản</div>
-    </div>
-  </div>
-
-  <!-- Stat 2: Customers -->
-  <div class="stat-item">
-    <div class="stat-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
-      </svg>
-    </div>
-    <div class="stat-content">
-      <div class="stat-number">8K+</div>
-      <div class="stat-label">Khách hàng<br/>thân thiết</div>
-      <div class="stat-sub">Cảm ơn sự tin yêu của mọi người.</div>
-    </div>
-  </div>
-
-  <!-- Stat 3: Dishes -->
-  <div class="stat-item">
-    <div class="stat-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <path d="M18 8h1a4 4 0 010 8h-1"/>
-        <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
-        <line x1="6" y1="1" x2="6" y2="4"/>
-        <line x1="10" y1="1" x2="10" y2="4"/>
-        <line x1="14" y1="1" x2="14" y2="4"/>
-      </svg>
-    </div>
-    <div class="stat-content">
-      <div class="stat-number">50+</div>
-      <div class="stat-label">Món ngon<br/>phục vụ mỗi ngày</div>
-      <div class="stat-sub">Thực đơn đa dạng, đổi mới thường xuyên.</div>
-    </div>
-  </div>
-
-  <!-- Stat 4: Ingredients -->
-  <div class="stat-item">
-    <div class="stat-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8z"/>
-        <circle cx="12" cy="10" r="2.5"/>
-        <path d="M12 12v6"/>
-      </svg>
-    </div>
-    <div class="stat-content">
-      <div class="stat-number">100%</div>
-      <div class="stat-label">Nguyên liệu tươi<br/>được chọn mỗi sáng</div>
-      <div class="stat-sub">Ưu tiên nguyên liệu sạch, từ các nhà cung cấp uy tín.</div>
-    </div>
-  </div>
-
-</div>
-
-</body>
+  </body>
 </html>
